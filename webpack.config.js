@@ -16,6 +16,7 @@ module.exports = (env) => ({
       }
     ]
   },
+  devtool: 'source-map',
   plugins: [
     new CopyPlugin([
       { context: 'public', from: '**/*' }
