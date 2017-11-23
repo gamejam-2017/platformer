@@ -1,0 +1,27 @@
+{
+  "name": "gamejam-platformer",
+  "version": "1.0.0",
+  "description": "Platformer game for GameJam 2017 at Mail.ru",
+  "main": "src/index.js",
+  "repository": "https://github.com/gamejam-2017/platformer.git",
+  "author": "Алексей Протасов <a.protasov@corp.mail.ru>",
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "copy-webpack-plugin": "^4.2.3",
+    "expose-loader": "^0.7.4",
+    "webpack": "^3.8.1",
+    "webpack-dev-server": "^2.9.4"
+  },
+  "dependencies": {
+    "phaser-ce": "^2.9.2"
+  },
+  "scripts": {
+    "start": "webpack-dev-server --content-base build/ --progress --colors --watch",
+    "build": "webpack --progress --colors"
+  }
+}
