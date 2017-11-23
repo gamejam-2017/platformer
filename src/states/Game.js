@@ -1,5 +1,5 @@
 export default class GameState extends Phaser.State {
-  init(game) {
+  init() {
     // TODO Init game parameters here
   }
   create(game) {
