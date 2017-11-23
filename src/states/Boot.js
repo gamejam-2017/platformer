@@ -1,16 +1,16 @@
 export default class BootState extends Phaser.State {
-  init() {
-    this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+  init(game) {
+    this.scale.scaleMode = Phaser.ScaleManager.NO_SCALE;
     this.scale.pageAlignHorizontally = true;
     this.scale.pageAlignVertically = true;
 
-    this.game.stage.backgroundColor = '#fff';
-    this.game.physics.startSystem(Phaser.Physics.ARCADE);
+    game.stage.backgroundColor = '#000';
+    game.physics.startSystem(Phaser.Physics.ARCADE);
   }
-  preload() {
+  preload(game) {
     this.load.image('preloader', 'assets/images/preloader-bar.png');
   }
-  create() {
+  create(game) {
     this.state.start('Preload');
   }
 }

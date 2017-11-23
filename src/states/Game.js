@@ -1,17 +1,14 @@
 export default class GameState extends Phaser.State {
-  init() {
+  init(game) {
     // TODO Init game parameters here
   }
-  create() {
+  create(game) {
     // TODO Create initial game entities here
   }
-  update() {
+  update(game) {
     // TODO Implement game logic here
   }
-  restart() {
-    this.game.state.start('Game');
-  }
-  render() {
+  render(game) {
     // TODO Add debug logic here if needed
   }
 }

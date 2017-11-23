@@ -1,6 +1,6 @@
 export default class PreloadState extends Phaser.State {
-  preload() {
-    this.preloader = this.add.sprite(this.game.world.centerX, this.game.world.centerY, 'preloader');
+  preload(game) {
+    this.preloader = this.add.sprite(game.world.centerX, game.world.centerY, 'preloader');
     this.preloader.anchor.setTo(.5);
     this.preloader.scale.setTo(3);
 
@@ -8,7 +8,7 @@ export default class PreloadState extends Phaser.State {
 
     // TODO Preload additional assets here
   }
-  create() {
+  create(game) {
     this.state.start('Game');
   }
 }
