@@ -5,8 +5,8 @@ export default class PreloadState extends Phaser.State {
     this.preloader.scale.setTo(3);
 
     this.load.setPreloadSprite(this.preloader);
-
-    // TODO Preload additional assets here
+    this.load.spritesheet('game_tiles', './assets/images/spritesheet.png', 21, 21, -1, 2, 2);
+    this.load.tilemap('playground_level', './assets/levels/playground.json', null, Phaser.Tilemap.TILED_JSON);
   }
   create(game) {
     this.state.start('Game');
