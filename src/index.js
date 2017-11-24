@@ -8,7 +8,7 @@ import GameState from './states/Game';
 
 class Game extends Phaser.Game {
   constructor(element) {
-    super(480, 320, Phaser.AUTO, element, {
+    super(420, 210, Phaser.AUTO, element, {
       create() {
         this.state.add('Boot', BootState);
         this.state.add('Preload', PreloadState);
@@ -16,7 +16,7 @@ class Game extends Phaser.Game {
 
         this.state.start('Boot');
       }
-    }, false, false);
+    });
   }
 }
 
