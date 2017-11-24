@@ -21,7 +21,8 @@
     "webpack-dev-server": "^2.9.4"
   },
   "dependencies": {
-    "phaser-ce": "^2.9.2"
+    "phaser-ce": "^2.9.2",
+    "pixi.js": "^4.6.1"
   },
   "scripts": {
     "start": "webpack-dev-server --content-base build/ --progress --colors --watch",
