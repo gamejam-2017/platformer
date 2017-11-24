@@ -19,9 +19,9 @@ module.exports = (env) => ({
   },
   devtool: 'source-map',
   plugins: [
-    new UglifyJsPlugin({
+    /*new UglifyJsPlugin({
       sourceMap: true
-    }),
+    }),*/
     new CopyPlugin([
       { context: 'public', from: '**/*' }
     ])
