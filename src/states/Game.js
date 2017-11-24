@@ -1,4 +1,5 @@
 import Player from '../prefabs/Player';
+import Slime from '../prefabs/Slime';
 import BurgerCannon from '../prefabs/BurgerCannon';
 
 export default class GameState extends Phaser.State {
@@ -11,10 +12,12 @@ export default class GameState extends Phaser.State {
     this.__createLevel();
     this.__createPlayer();
     this.cannons = this.__createCannons();
+    this.slimes = this.__createSlimes();
     this.cannonBullets = this.cannons.children.map((cannon) => cannon.getWeapon().bullets);
   }
   update() {
     this.game.physics.arcade.collide(this.player, this.collisionLayer);
+    this.game.physics.arcade.collide(this.slimes, this.collisionLayer);
     this.game.physics.arcade.overlap(this.player, this.cannonBullets, this.__touchCannon);
   }
   render(game) {
@@ -38,10 +41,19 @@ export default class GameState extends Phaser.State {
     this.game.camera.follow(this.player);
   }
   __createCannons() {
-    const cannons = this.__findObjectsByType('burger_cannon');
     const group = this.game.add.group();
+    const cannons = this.__findObjectsByType('burger_cannon');
     cannons.forEach((item) =>
       group.add(new BurgerCannon(this.game, item.x, item.y))
+    );
+    return group;
+  }
+  __createSlimes() {
+    const group = this.game.add.group();
+    const slimes = this.__findObjectsByType('slime');
+    console.log('SSS', slimes);
+    slimes.forEach((item) =>
+      group.add(new Slime(this.game, item.x, item.y, this.map))
     );
     return group;
   }

@@ -19,7 +19,7 @@ export default class Player extends Phaser.TileSprite {
     this.jumpTimer = 0;
     this.wasStanding = false;
 
-    this.anchor.setTo(0.5);
+    this.anchor.setTo(.5);
   }
   update() {
     this.body.velocity.x = 0;
