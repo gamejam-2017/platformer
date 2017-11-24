@@ -6,7 +6,6 @@ export default class PreloadState extends Phaser.State {
 
     this.load.setPreloadSprite(this.preloader);
     this.load.spritesheet('game_tiles', './assets/images/spritesheet.png', 21, 21, -1, 2, 2);
-    // this.load.spritesheet('buttonMenu', './assets/images/spritesheet.png', 21, 21, -1, 2, 2);
     this.load.spritesheet('MenuButtons', './assets/button/MenuButtons.png', 84, 21);
     this.load.spritesheet('levelButtons', './assets/button/level.png', 42, 42);
     this.load.spritesheet('levelDoneButtons', './assets/button/levelDone.png', 42, 42);

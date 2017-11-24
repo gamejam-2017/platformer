@@ -5,7 +5,7 @@ import BurgerCannon from '../prefabs/BurgerCannon';
 export default class GameState extends Phaser.State {
   init() {
     this.game.physics.arcade.gravity.y = 1000;
-
+    this.game.stage.backgroundColor = '#2f9acc';
     this.cannons = this.game.add.group(this, 'cannons', true, true);
   }
   create() {

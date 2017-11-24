@@ -3,7 +3,7 @@ import * as menuSize from '../../constants/menuSize';
 const paddingItem = 10;
 export default class MenuState extends Phaser.State {
   init() {
-    this.game.stage.backgroundColor = 'gray';
+    this.game.stage.backgroundColor = '#ccc';
     // this.background = game.add.tileSprite(0, 0, 800, 600, 'background');
     this.menuItems = [
       {
