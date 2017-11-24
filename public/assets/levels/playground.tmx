@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="60" height="20" tilewidth="21" tileheight="21" nextobjectid="19">
+<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="60" height="20" tilewidth="21" tileheight="21" backgroundcolor="#00aaff" nextobjectid="24">
  <tileset firstgid="1" name="game_tiles" tilewidth="21" tileheight="21" spacing="2" margin="2" tilecount="900" columns="30">
   <image source="../images/spritesheet.png" width="692" height="692"/>
  </tileset>
@@ -14,7 +14,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,123,123,123,123,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,122,122,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -64,5 +64,8 @@
   <object id="14" name="Enemy" type="snail" gid="415" x="672" y="378" width="21" height="21"/>
   <object id="15" name="Gold Coin" type="coin" gid="79" x="504" y="273" width="21" height="21"/>
   <object id="18" name="Lock" type="lock" gid="195" x="861" y="399" width="21" height="21"/>
+  <object id="19" name="Burger Cannon" type="burger_cannon" gid="859" x="273" y="399" width="21" height="21"/>
+  <object id="21" name="Burger Cannon" type="burger_cannon" gid="859" x="483" y="273" width="21" height="21"/>
+  <object id="23" name="Burger Cannon" type="burger_cannon" gid="859" x="609" y="399" width="21" height="21"/>
  </objectgroup>
 </map>
