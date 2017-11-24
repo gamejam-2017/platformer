@@ -39,7 +39,6 @@ export default class GameState extends Phaser.State {
   }
   __createCannons() {
     const cannons = this.__findObjectsByType('burger_cannon');
-    console.log('>>>', cannons);
     const group = this.game.add.group();
     cannons.forEach((item) =>
       group.add(new BurgerCannon(this.game, item.x, item.y))

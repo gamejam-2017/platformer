@@ -1,5 +1,4 @@
 const BULLET_SPEED = 100;
-const FIRE_RATE = 150;
 
 export default class BurgerCannon extends Phaser.TileSprite {
   constructor(game, x, y) {
