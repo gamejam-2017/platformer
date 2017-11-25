@@ -25,31 +25,19 @@
         }, 
         {
          "draworder":"topdown",
-         "name":"objects",
+         "name":"collection",
          "objects":[
-                {
-                 "gid":20,
-                 "height":21,
-                 "id":1,
-                 "name":"Player",
-                 "rotation":0,
-                 "type":"player",
-                 "visible":true,
-                 "width":21,
-                 "x":0,
-                 "y":357
-                }, 
                 {
                  "gid":15,
                  "height":21,
                  "id":5,
-                 "name":"Gold Key",
+                 "name":"Energy",
                  "rotation":0,
-                 "type":"key",
+                 "type":"energy",
                  "visible":true,
                  "width":21,
-                 "x":378,
-                 "y":231
+                 "x":294,
+                 "y":272.5
                 }, 
                 {
                  "gid":79,
@@ -108,8 +96,8 @@
                  "type":"coin",
                  "visible":true,
                  "width":21,
-                 "x":168,
-                 "y":378
+                 "x":30,
+                 "y":399.5
                 }, 
                 {
                  "gid":79,
@@ -127,13 +115,57 @@
                  "gid":195,
                  "height":21,
                  "id":18,
-                 "name":"Lock",
+                 "name":"Garb",
                  "rotation":0,
-                 "type":"lock",
+                 "type":"garb",
                  "visible":true,
                  "width":21,
-                 "x":861,
+                 "x":126.5,
                  "y":399
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "name":"Exit",
+         "objects":[
+                {
+                 "gid":168,
+                 "height":21,
+                 "id":47,
+                 "name":"Door",
+                 "rotation":0,
+                 "type":"exit",
+                 "visible":true,
+                 "width":21,
+                 "x":651,
+                 "y":398
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "name":"players",
+         "objects":[
+                {
+                 "gid":20,
+                 "height":21,
+                 "id":1,
+                 "name":"Player",
+                 "rotation":0,
+                 "type":"player",
+                 "visible":true,
+                 "width":21,
+                 "x":0,
+                 "y":357
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -259,7 +291,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":46,
+ "nextobjectid":49,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.0.3",

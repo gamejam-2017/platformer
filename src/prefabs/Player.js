@@ -18,7 +18,7 @@ export default class Player extends Phaser.TileSprite {
     this.edgeTimer = 0;
     this.jumpTimer = 0;
     this.wasStanding = false;
-
+    this.coins = 0;
     this.anchor.setTo(0.5);
   }
   update() {
