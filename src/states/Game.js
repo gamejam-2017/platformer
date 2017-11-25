@@ -7,38 +7,55 @@ import Energy from '../prefabs/Energy';
 import Garb from '../prefabs/Garb';
 import Exit from '../prefabs/Exit';
 import storage from '../utils/localStorageFacade';
-
+import { styleWhite } from "../utils/styles";
 
 export default ({
   levelName,
   playground,
   onNext
 }) => class GameState extends Phaser.State {
-  init() {
-    this.game.physics.arcade.gravity.y = 1000;
-    this.game.stage.backgroundColor = '#2f9acc';
-    this.cannons = this.game.add.group(this, 'cannons', true, true);
-    // Собранные ресурсы на уровне
-    this.collectedResources = {
-      coins: 0,
-      energy: 0,
-      garb: 0
-    };
-  }
-  create() {
-    this.__createLevel();
-    this.player = this.__createPlayer();
-    this.cannons = this.__createCannons();
-    this.slimes = this.__createSlimes();
-    this.waitresses = this.__createWaitresses();
-    this.coins = this.__createCoin();
-    this.energy = this.__createEnergy();
-    this.garb = this.__createGarb();
-    this.exit = this.__createExit();
-    this.cannonBullets = this.cannons.children.map((cannon) => cannon.getWeapon().bullets);
+    init() {
+      this.game.physics.arcade.gravity.y = 1000;
+      this.game.stage.backgroundColor = '#2f9acc';
+      this.cannons = this.game.add.group(this, 'cannons', true, true);
+      // Собранные ресурсы на уровне
+      this.collectedResources = {
+        coins: 0,
+        energy: 0,
+        garb: 0
+      };
+    }
+    create() {
+      this.__createLevel();
+      this.groupCollectedResources = this.__collectedResources();
+      this.player = this.__createPlayer();
+      this.cannons = this.__createCannons();
+      this.slimes = this.__createSlimes();
+      this.waitresses = this.__createWaitresses();
+      this.coins = this.__createCoin();
+      this.energy = this.__createEnergy();
+      this.garb = this.__createGarb();
+      this.exit = this.__createExit();
+      this.cannonBullets = this.cannons.children.map((cannon) => cannon.getWeapon().bullets);
 
     this.game.camera.follow(this.player);
   }
+    __collectedResources() {
+      const x = 10;
+      const y = 20;
+      const marginTextTop = 2;
+      const group = this.game.add.group();
+      group.fixedToCamera = true;
+      group.add(new Coin(this.game, x, y));
+      this.coinsText = this.game.add.text(x + 22, y + marginTextTop, this.collectedResources.coins, styleWhite);
+      group.add(new Garb(this.game, x, y * 2));
+      this.garbText = this.game.add.text(x + 22, y * 2  + marginTextTop, this.collectedResources.garb, styleWhite);
+      group.add(new Energy(this.game, x, y * 3));
+      this.energyText = this.game.add.text(x + 22, y * 3 + marginTextTop, this.collectedResources.energy, styleWhite);
+      group.add(this.coinsText);
+      group.add(this.garbText);
+      group.add(this.energyText);
+    }
   update() {
     this.game.physics.arcade.collide(this.player, this.collisionLayer);
     this.game.physics.arcade.collide(this.slimes, this.collisionLayer);
@@ -53,6 +70,9 @@ export default ({
     this.game.physics.arcade.overlap(this.player, this.garb, this.__touchGarb, null, this);
     this.game.physics.arcade.overlap(this.player, this.exit, this.__touchExit, null, this);
     this.game.physics.arcade.overlap(this.player, this.cannonBullets, this.__touchCannon, null, this);
+    this.coinsText.text = this.collectedResources.coins;
+    this.garbText.text = this.collectedResources.garb;
+    this.energyText.text = this.collectedResources.energy;
   }
   render(game) {
     // TODO Add debug logic here if needed
@@ -82,10 +102,10 @@ export default ({
     }
   }
 
-  __touchEnergy(_, item) {
-    item.kill();
-    this.collectedResources.energy++;
-  }
+    __touchEnergy(player, item) {
+      item.kill();
+      this.collectedResources.energy++;
+    }
 
   __touchGarb(player, item) {
     item.kill();

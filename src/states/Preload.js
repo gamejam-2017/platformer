@@ -1,3 +1,5 @@
+import * as stateNameLevels from '../constants/stateNameLevels'
+
 export default class PreloadState extends Phaser.State {
   preload(game) {
     this.preloader = this.add.sprite(game.world.centerX, game.world.centerY, 'preloader');
@@ -13,6 +15,6 @@ export default class PreloadState extends Phaser.State {
     this.load.tilemap('playground_level', './assets/levels/playground.json', null, Phaser.Tilemap.TILED_JSON);
   }
   create(game) {
-    this.state.start('MainMenu');
+    this.state.start('LevelsMenu')//'MainMenu');
   }
 }

@@ -15,6 +15,7 @@ export default ({
   }
   create(game) {
     let findTilesCount = 0;
+    const timerStart = performance.now();
     // choose 8 random tile images
     let chosenTiles = [];
     while(chosenTiles.length<16){
@@ -61,10 +62,11 @@ export default ({
                     this.secondTile=null;
                     this.canPick=true;
                     if (findTilesCount === 16) {
+                      const time = parseFloat((performance.now() - timerStart) / 1000).toFixed(1);
+                      const oldData = storage.getItem(levelName);
                       storage.setItem(levelName, {
                         isDone: true,
-                        // TODO можно добавить время прохождения
-                        time: ''
+                        time: oldData && oldData.time < time ? oldData.time : time
                       });
                       onNext(true);
                     }

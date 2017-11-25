@@ -24,7 +24,7 @@ class LocalStorageFacade {
   }
 
   getItem(key) {
-    data = this.getData();
+    const data = this.getData();
     return data[key] || {};
   }
 
