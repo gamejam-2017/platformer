@@ -2,3 +2,6 @@
     font-family: 'TheMinion';
     src: url('../fonts/theminion.otf');
 }
+body {
+  font-family: 'TheMinion';
+}

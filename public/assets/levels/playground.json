@@ -120,8 +120,8 @@
                  "type":"garb",
                  "visible":true,
                  "width":21,
-                 "x":126.5,
-                 "y":399
+                 "x":63,
+                 "y":399.75
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -142,8 +142,8 @@
                  "type":"exit",
                  "visible":true,
                  "width":21,
-                 "x":651,
-                 "y":398
+                 "x":105.25,
+                 "y":399.75
                 }],
          "opacity":1,
          "type":"objectgroup",
