@@ -101,7 +101,7 @@ export default ({
       }
       player.damage(enemy.damageValue);
       if (!player.alive) {
-        onNext(false);
+        this.onSaveAndNext({ isDone: false });
       } else {
         player.makeInvincible();
       }
@@ -133,7 +133,7 @@ export default ({
     item.kill();
     player.damage(1);
     if (!player.alive) {
-      onNext(false);
+      this.onSaveAndNext({ isDone: false });
     } else {
       player.makeInvincible();
     }
