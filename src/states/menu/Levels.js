@@ -78,16 +78,17 @@ export default class LevelsState extends Phaser.State {
       if (v.storageData && v.storageData.isDone) {
         const x = marginX + key * sizeBtn;
         const y = marginY;
-        this.game.add.button(x, y, 'levelDoneButtons', this.onLevelDoneClick.bind(this, v), this, 0, 0, 0);
-        const coin = this.game.add.tileSprite.bind(this, x, y + sizeBtn + 5, 21, 21, 'game_tiles', 78);
-        this.__addTextCount(coin, v.storageData.collectedResources, 'coins');
-        const energy = this.game.add.tileSprite.bind(this, x, y + sizeBtn + 18, 21, 21, 'game_tiles', 14);
-        this.__addTextCount(energy, v.storageData.collectedResources, 'energy');
-        const garb = this.game.add.tileSprite.bind(this, x, y + sizeBtn + 38, 21, 21, 'game_tiles', 194);
-        this.__addTextCount(garb, v.storageData.collectedResources, 'garb');
         if (v.storageData.time) {
-          this.game.add.text(x, y + sizeBtn + 5, v.storageData.time + 'сек', styleWhite);
+          this.game.add.text(x, y + sizeBtn, v.storageData.time + 'сек', styleWhite);
         }
+        this.game.add.button(x, y, 'levelDoneButtons', this.onLevelDoneClick.bind(this, v), this, 0, 0, 0);
+        const coin = this.game.add.tileSprite.bind(this, x, y + sizeBtn + 13, 21, 21, 'game_tiles', 78);
+        this.__addTextCount(coin, v.storageData.collectedResources, 'coins');
+        const energy = this.game.add.tileSprite.bind(this, x, y + sizeBtn + 26, 21, 21, 'game_tiles', 14);
+        this.__addTextCount(energy, v.storageData.collectedResources, 'energy');
+        const garb = this.game.add.tileSprite.bind(this, x, y + sizeBtn + 46, 21, 21, 'game_tiles', 194);
+        this.__addTextCount(garb, v.storageData.collectedResources, 'garb');
+
 
       } else {
         this.game.add.button(marginX + key * sizeBtn,
