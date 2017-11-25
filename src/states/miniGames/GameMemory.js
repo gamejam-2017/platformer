@@ -1,8 +1,12 @@
 import PIXI from 'expose-loader?PIXI!phaser-ce/build/custom/pixi.js';
+import storage from '../../utils/localStorageFacade';
 
 const DEFAULT_FRAME = 193;
 
-export default class GameMemory extends Phaser.State {
+export default ({
+  levelName,
+  onNext
+}) => class GameMemory extends Phaser.State {
   init() {
     this.firstTile = null;
     this.secondTile = null;
@@ -57,7 +61,12 @@ export default class GameMemory extends Phaser.State {
                     this.secondTile=null;
                     this.canPick=true;
                     if (findTilesCount === 16) {
-                      console.log('YOU WIN!!!');
+                      storage.setItem(levelName, {
+                        isDone: true,
+                        // TODO можно добавить время прохождения
+                        time: ''
+                      });
+                      onNext(true);
                     }
                   },500);
                 }

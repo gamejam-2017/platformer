@@ -59,10 +59,10 @@
   <object id="12" name="Gold Coin" type="coin" gid="79" x="210" y="378" width="21" height="21"/>
   <object id="13" name="Gold Coin" type="coin" gid="79" x="30" y="399.5" width="21" height="21"/>
   <object id="15" name="Gold Coin" type="coin" gid="79" x="504" y="273" width="21" height="21"/>
-  <object id="18" name="Garb" type="garb" gid="195" x="126.5" y="399" width="21" height="21"/>
+  <object id="18" name="Garb" type="garb" gid="195" x="63" y="399.75" width="21" height="21"/>
  </objectgroup>
  <objectgroup name="Exit">
-  <object id="47" name="Door" type="exit" gid="168" x="651" y="398" width="21" height="21"/>
+  <object id="47" name="Door" type="exit" gid="168" x="105.25" y="399.75" width="21" height="21"/>
  </objectgroup>
  <objectgroup name="players">
   <object id="1" name="Player" type="player" gid="20" x="0" y="357" width="21" height="21"/>

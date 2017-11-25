@@ -1,3 +1,4 @@
+import * as stateNameLevels from '../constants/stateNameLevels'
 export default class IntroState extends Phaser.State {
   init() {
     this.pictureA = null;
@@ -57,7 +58,7 @@ export default class IntroState extends Phaser.State {
     }
   }
   __startGame() {
-    this.state.start('Game');
+    this.state.start(stateNameLevels.GameLevel_1);
   }
   __createPicture(x, y, sprite) {
     const picture = new Phaser.Sprite(this.game, x, y, sprite);

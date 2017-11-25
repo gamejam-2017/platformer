@@ -1,4 +1,7 @@
 import Level from '../../prefabs/Level';
+import storage from '../../utils/localStorageFacade';
+import * as stateNameLevels from '../../constants//stateNameLevels';
+
 const marginX = 20;
 const marginY = 20;
 
@@ -13,24 +16,32 @@ export default class LevelsState extends Phaser.State {
     this.scale.pageAlignVertically = true;
 
     this.game.stage.backgroundColor = 'blue';
+    const dataByStorage = storage.getData()
     this.levels = [
       new Level({
         text: '1',
-        isDone: true,
-        onClick: () => this.state.start('Game')
+        isDone: dataByStorage[stateNameLevels.GameLevel_1] && !!dataByStorage[stateNameLevels.GameLevel_1].isDone,
+        onClick: () => this.state.start(stateNameLevels.GameLevel_1)
       }),
       new Level({
         text: '2',
-        onClick: () => this.state.start('GameMemory')
+        isDone: dataByStorage[stateNameLevels.GameLevel_2] && dataByStorage[stateNameLevels.GameLevel_2].isDone,
+        onClick: () => this.state.start(stateNameLevels.GameLevel_2)
       }),
       new Level({
-        text: '3'
+        text: '3',
+        isDone: dataByStorage[stateNameLevels.GameLevel_3] && dataByStorage[stateNameLevels.GameLevel_3].isDone,
+        onClick: () => this.state.start(stateNameLevels.GameLevel_3)
       }),
       new Level({
-        text: '4'
+        text: '4',
+        isDone: dataByStorage[stateNameLevels.GameLevel_4] && dataByStorage[stateNameLevels.GameLevel_4].isDone,
+        onClick: () => this.state.start(stateNameLevels.GameLevel_4)
       }),
       new Level({
-        text: '5'
+        text: '5',
+        isDone: dataByStorage[stateNameLevels.GameLevel_5] && dataByStorage[stateNameLevels.GameLevel_5].isDone,
+        onClick: () => this.state.start(stateNameLevels.GameLevel_5)
       })
     ];
   }
@@ -47,7 +58,7 @@ export default class LevelsState extends Phaser.State {
   preload(game) {
   }
 
-  create(game) {
+  __renderLevels() {
     const style = { font: '10px', fill: '#000', align: 'center' };
     this.levels.forEach((v, key) => {
       if (v.isDone) {
@@ -68,7 +79,20 @@ export default class LevelsState extends Phaser.State {
           v.text,
           style);
       }
-
     });
+  }
+
+  create(game) {
+    this.__renderLevels();
+    const clearData = this.game.add.text(100,
+      150,
+      'сбросить данные',
+      { font: '15px', fill: '#fff', align: 'center' });
+
+    clearData.inputEnabled = true;
+    clearData.events.onInputDown.add(() => {
+      storage.clearData();
+      this.state.start('LevelsMenu')
+    }, this);
   }
 }

@@ -6,13 +6,24 @@ import Coin from '../prefabs/Coin';
 import Energy from '../prefabs/Energy';
 import Garb from '../prefabs/Garb';
 import Exit from '../prefabs/Exit';
+import storage from '../utils/localStorageFacade';
 
 
-export default class GameState extends Phaser.State {
+export default ({
+  levelName,
+  playground,
+  onNext
+}) => class GameState extends Phaser.State {
   init() {
     this.game.physics.arcade.gravity.y = 1000;
     this.game.stage.backgroundColor = '#2f9acc';
     this.cannons = this.game.add.group(this, 'cannons', true, true);
+    // Собранные ресурсы на уровне
+    this.collectedResources = {
+      coins: 0,
+      energy: 0,
+      garb: 0
+    };
   }
   create() {
     this.__createLevel();
@@ -36,11 +47,11 @@ export default class GameState extends Phaser.State {
     this.game.physics.arcade.collide(this.energy, this.collisionLayer);
     this.game.physics.arcade.collide(this.garb, this.collisionLayer);
     this.game.physics.arcade.collide(this.exit, this.collisionLayer);
-    this.game.physics.arcade.overlap(this.player, this.coins, this.__touchCoin);
-    this.game.physics.arcade.overlap(this.player, this.energy, this.__touchEnergy);
-    this.game.physics.arcade.overlap(this.player, this.garb, this.__touchGarb);
-    this.game.physics.arcade.overlap(this.player, this.exit, this.__touchExit);
-    this.game.physics.arcade.overlap(this.player, this.cannonBullets, this.__touchCannon);
+    this.game.physics.arcade.overlap(this.player, this.coins, this.__touchCoin, null, this);
+    this.game.physics.arcade.overlap(this.player, this.energy, this.__touchEnergy, null, this);
+    this.game.physics.arcade.overlap(this.player, this.garb, this.__touchGarb, null, this);
+    this.game.physics.arcade.overlap(this.player, this.exit, this.__touchExit, null, this);
+    this.game.physics.arcade.overlap(this.player, this.cannonBullets, this.__touchCannon, null, this);
   }
   render(game) {
     // TODO Add debug logic here if needed
@@ -48,21 +59,25 @@ export default class GameState extends Phaser.State {
   }
   __touchCoin(player, item) {
     item.kill();
-    player.coins++
+    this.collectedResources.coins++;
   }
 
   __touchEnergy(player, item) {
     item.kill();
-    player.coins++
+    this.collectedResources.energy++;
   }
 
   __touchGarb(player, item) {
     item.kill();
-    player.coins++
+    this.collectedResources.garb++;
   }
 
   __touchExit(player, item) {
-    console.log('exit');
+    storage.setItem(levelName, {
+      isDone: true,
+      collectedResources: this.collectedResources
+    });
+    onNext(true);
   }
 
   __touchCannon(player, item) {
