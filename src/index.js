@@ -10,6 +10,7 @@ import MainMenuState from './states/menu/MainMenu';
 import LevelsMenuState from './states/menu/Levels';
 import GameMemory from './states/miniGames/GameMemory';
 import * as stateNameLevels from './constants/stateNameLevels'
+import GameSpeed from './states/miniGames/GameSpeed';
 
 class Game extends Phaser.Game {
   constructor(element) {
@@ -30,12 +31,12 @@ class Game extends Phaser.Game {
         this.state.add(stateNameLevels.GameLevel_3, GameState({
           levelName: stateNameLevels.GameLevel_3,
           playground: 'playground_level',
-          onNext: (isDone) => isDone ? this.state.start(stateNameLevels.GameLevel_1) : this.state.start(stateNameLevels.GameLevel_3)
+          onNext: (isDone) => isDone ? this.state.start(stateNameLevels.GameLevel_4) : this.state.start(stateNameLevels.GameLevel_3)
         }));
-        // this.state.add('GameLevel_4', GameState({
-        //   levelName: 'level_4',
-        //   playground: 'playground_level'
-        // }));
+        this.state.add(stateNameLevels.GameLevel_4, GameSpeed({
+          levelName:stateNameLevels.GameLevel_4,
+          onNext: (isDone) => isDone ? this.state.start(stateNameLevels.GameLevel_1) : this.state.start(stateNameLevels.GameLevel_4)
+        }));
         // this.state.add('GameLevel_5', GameState({
         //   levelName: 'level_5',
         //   playground: 'playground_level'
@@ -47,6 +48,7 @@ class Game extends Phaser.Game {
 
         this.state.add('MainMenu', MainMenuState);
         this.state.add('LevelsMenu', LevelsMenuState);
+        this.state.add('GameSpeed', GameSpeed);
         // this.state.add('GameMemory', GameMemory);
 
 
