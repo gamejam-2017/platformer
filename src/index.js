@@ -10,6 +10,7 @@ import MainMenuState from './states/menu/MainMenu';
 import LevelsMenuState from './states/menu/Levels';
 import GameMemory from './states/miniGames/GameMemory';
 import * as stateNameLevels from './constants/stateNameLevels'
+import GameSpeed from './states/miniGames/GameSpeed';
 
 class Game extends Phaser.Game {
   constructor(element) {
@@ -47,6 +48,7 @@ class Game extends Phaser.Game {
 
         this.state.add('MainMenu', MainMenuState);
         this.state.add('LevelsMenu', LevelsMenuState);
+        this.state.add('GameSpeed', GameSpeed);
         // this.state.add('GameMemory', GameMemory);
 
 
