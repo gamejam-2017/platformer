@@ -10,7 +10,7 @@ export default class Slime extends Phaser.TileSprite {
     this.body.bounce.set(1, 0);
     this.body.velocity.x = -30;
 
-    this.anchor.setTo(0.5);
+    this.anchor.setTo(.5);
 
     this.play('crawl');
   }
@@ -18,10 +18,10 @@ export default class Slime extends Phaser.TileSprite {
     let direction;
 
     if (this.body.velocity.x > 0) {
-      this.scale.setTo(-1, 1);
+      this.tileScale.setTo(-1, 1);
       direction = 1;
     } else {
-      this.scale.setTo(1, 1);
+      this.tileScale.setTo(1, 1);
       direction = -1;
     }
 

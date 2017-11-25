@@ -25,7 +25,7 @@ export default class Waitress extends Phaser.TileSprite {
     const distance = this.game.physics.arcade.distanceBetween(this, this.player);
 
     if (
-      distance > 105 ||
+      distance > 210 ||
       (Math.abs(this.x - this.player.x) <= this.width && this.y !== this.player.y)
     ) {
       this.mode = Modes.IDLE;
@@ -37,9 +37,9 @@ export default class Waitress extends Phaser.TileSprite {
       this.body.velocity.x = (this.x > this.player.x) ? -102 : 102;
 
       if (this.body.velocity.x > 0) {
-        this.scale.setTo(1, 1);
+        this.tileScale.setTo(1, 1);
       } else {
-        this.scale.setTo(-1, 1);
+        this.tileScale.setTo(-1, 1);
       }
 
       this.play('walk');

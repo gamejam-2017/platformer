@@ -28,14 +28,14 @@ export default ({
   create() {
     this.__createLevel();
     this.player = this.__createPlayer();
-    this.cannons = this.__createCannons();
+    //this.cannons = this.__createCannons();
     this.slimes = this.__createSlimes();
     this.waitresses = this.__createWaitresses();
     this.coins = this.__createCoin();
     this.energy = this.__createEnergy();
     this.garb = this.__createGarb();
     this.exit = this.__createExit();
-    this.cannonBullets = this.cannons.children.map((cannon) => cannon.getWeapon().bullets);
+    //this.cannonBullets = this.cannons.children.map((cannon) => cannon.getWeapon().bullets);
 
     this.game.camera.follow(this.player);
   }
@@ -47,6 +47,7 @@ export default ({
     this.game.physics.arcade.collide(this.energy, this.collisionLayer);
     this.game.physics.arcade.collide(this.garb, this.collisionLayer);
     this.game.physics.arcade.collide(this.exit, this.collisionLayer);
+    this.game.physics.arcade.overlap(this.player, [this.slimes, this.waitresses], this.__touchEnemy, null, this);
     this.game.physics.arcade.overlap(this.player, this.coins, this.__touchCoin, null, this);
     this.game.physics.arcade.overlap(this.player, this.energy, this.__touchEnergy, null, this);
     this.game.physics.arcade.overlap(this.player, this.garb, this.__touchGarb, null, this);
@@ -55,11 +56,24 @@ export default ({
   }
   render(game) {
     // TODO Add debug logic here if needed
-    // this.game.debug.body(this.player);
+    //this.game.debug.body(this.player);
   }
   __touchCoin(player, item) {
     item.kill();
     this.collectedResources.coins++;
+  }
+  __getKnockbackDirection(o1, o2) {
+    return o1.x < o2.x ? 'left' : 'right';
+  }
+  __touchEnemy(player, enemy) {
+    console.log('Player touching down', player.body.touching.down);
+    console.log('Enemy touching up', enemy.body.touching.up);
+
+    if (player.body.touching.down && enemy.body.touching.up) {
+      enemy.kill();
+    } else {
+      this.state.start('Game');
+    }
   }
 
   __touchEnergy(player, item) {
@@ -108,6 +122,7 @@ export default ({
   }
   __createSlimes() {
     const group = this.game.add.group();
+    group.enableBody = true;
     const slimes = this.__findObjectsByType('slime', 'enemies');
     slimes.forEach((item) =>
       group.add(new Slime(this.game, item.x, item.y, this.map))
