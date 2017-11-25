@@ -7,7 +7,7 @@ import PreloadState from './states/Preload';
 import GameState from './states/Game';
 import MainMenuState from './states/menu/MainMenu';
 import LevelsMenuState from './states/menu/Levels';
-
+import GameMemory from './states/miniGames/GameMemory';
 
 
 class Game extends Phaser.Game {
@@ -19,6 +19,8 @@ class Game extends Phaser.Game {
         this.state.add('Game', GameState);
         this.state.add('MainMenu', MainMenuState);
         this.state.add('LevelsMenu', LevelsMenuState);
+	      this.state.add('GameMemory', GameMemory);
+
 
         this.state.start('Boot');
       }

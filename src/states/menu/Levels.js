@@ -16,10 +16,12 @@ export default class LevelsState extends Phaser.State {
     this.levels = [
       new Level({
         text: '1',
-        isDone: true
+        isDone: true,
+        onClick: () => this.state.start('Game')
       }),
       new Level({
-        text: '2'
+        text: '2',
+        onClick: () => this.state.start('GameMemory')
       }),
       new Level({
         text: '3'
@@ -34,10 +36,12 @@ export default class LevelsState extends Phaser.State {
   }
   onLevelClick(v) {
     console.log(v.text);
+    v.onClick();
   }
 
   onLevelDoneClick(v) {
     console.log('done', v.text);
+    v.onClick();
   }
 
   preload(game) {
