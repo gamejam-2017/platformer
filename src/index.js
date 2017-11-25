@@ -6,9 +6,11 @@ import BootState from './states/Boot';
 import PreloadState from './states/Preload';
 import GameState from './states/Game';
 
+
+
 class Game extends Phaser.Game {
   constructor(element) {
-    super(420, 210, Phaser.AUTO, element, {
+    super(333, 187, Phaser.AUTO, element, {
       create() {
         this.state.add('Boot', BootState);
         this.state.add('Preload', PreloadState);

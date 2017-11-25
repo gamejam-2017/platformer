@@ -5,7 +5,7 @@ export default class Player extends Phaser.TileSprite {
   constructor(game, x, y) {
     super(game, x, y, 21, 21, 'game_tiles', 19);
 
-    this.animations.add('walk', [26,27,28,29], 6, true);
+    this.animations.add('walk', [26,27,28,29], 10, true);
     this.animations.add('idle', [20, 21], 2, true);
 
     game.physics.arcade.enable(this);
