@@ -9,7 +9,7 @@ export default class Player extends Phaser.TileSprite {
     this.animations.add('idle', [20, 21], 2, true);
 
     game.physics.arcade.enable(this);
-
+    this.body.setSize(18, 18, 3, 3);
     this.body.collideWorldBounds = true;
 
     this.cursors = game.input.keyboard.createCursorKeys();
@@ -20,9 +20,22 @@ export default class Player extends Phaser.TileSprite {
     this.wasStanding = false;
     this.coins = 0;
     this.anchor.setTo(0.5);
+
+    this.health = 3;
+
+    this.__invincible = false;
+  }
+  get invincible() {
+    return this.__invincible;
+  }
+  makeInvincible() {
+    this.__invincible = true;
+    this.game.time.events.add(2000, () => this.__invincible = false);
   }
   update() {
     this.body.velocity.x = 0;
+
+    this.alpha = this.__invincible ? 0.5 : 1;
 
     const standing = this.body.blocked.down || this.body.touching.down;
 

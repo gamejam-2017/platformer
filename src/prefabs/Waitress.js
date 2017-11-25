@@ -1,32 +1,40 @@
+import EnemyBase from './EnemyBase';
+
 const Modes = {
   IDLE: 'idle',
   CHASING: 'chasing'
 };
 
-export default class Waitress extends Phaser.TileSprite {
-  constructor(game, x, y, tilemap, player) {
-    super(game, x, y, 21, 21, 'game_tiles', 109);
-    this.tilemap = tilemap;
-    this.player = player;
+export default (player) => class Waitress extends EnemyBase {
+  constructor(game, x, y) {
+    super(game, x, y, 'game_tiles', 109);
 
     this.animations.add('walk', [116, 117, 118, 119], 10, true);
     this.animations.add('idle', [110, 111], 2, true);
-
-    game.physics.arcade.enable(this);
-    this.body.collideWorldBounds = true;
-    this.body.bounce.set(1, 0);
-
-    this.anchor.setTo(0.5);
+    this.animations.add('die', [113, 113, 113], 1);
 
     this.mode = Modes.IDLE;
     this.play('idle');
+
+    this.dying = false;
+  }
+  killWithAnimation() {
+    this.body.enable = false;
+    this.rotation = -90;
+    this.dying = true;
+    this.play('die', 10, false, true);
   }
   update() {
-    const distance = this.game.physics.arcade.distanceBetween(this, this.player);
+    if (this.dying) {
+      return;
+    }
+
+    const distance = this.game.physics.arcade.distanceBetween(this, player);
 
     if (
-      distance > 210 ||
-      (Math.abs(this.x - this.player.x) <= this.width && this.y !== this.player.y)
+      player.alive &&
+      (distance > 210 ||
+      (Math.abs(this.x - player.x) <= this.width && this.y !== player.y))
     ) {
       this.mode = Modes.IDLE;
     } else {
@@ -34,7 +42,7 @@ export default class Waitress extends Phaser.TileSprite {
     }
 
     if (this.mode === Modes.CHASING) {
-      this.body.velocity.x = (this.x > this.player.x) ? -102 : 102;
+      this.body.velocity.x = (this.x > player.x) ? -102 : 102;
 
       if (this.body.velocity.x > 0) {
         this.tileScale.setTo(1, 1);
