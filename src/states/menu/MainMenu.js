@@ -20,15 +20,11 @@ export default class MenuState extends Phaser.State {
   }
 
   onStartClick() {
-    console.log('click!');
-    this.state.start('Game');
-
+    this.state.start('Intro');
   }
 
   onLevelClick() {
-    console.log('click123!');
     this.state.start('LevelsMenu');
-
   }
 
   preload(game) {
