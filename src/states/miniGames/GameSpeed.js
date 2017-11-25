@@ -1,12 +1,8 @@
 import Phaser from 'expose-loader?Phaser!phaser-ce/build/custom/phaser-split.js';
-import storage from '../../utils/localStorageFacade';
 
 const SCORE_TO_WIN = 5;
 
-export default ({
-  levelName,
-  onNext
-}) => class GameSpeed extends Phaser.State {
+export default class GameSpeed extends Phaser.State {
   init() {
     this.game.stage.backgroundColor = '#000066';
     this.colors = [0xFFFF0B, 0xFF700B, 0x4286f4, 0x4286f4, 0xf441e8, 0x8dff6d, 0x41ccc9, 0xe03375, 0x95e032, 0x77c687, 0x43ba5b, 0x0ea3ba];
@@ -19,16 +15,16 @@ export default ({
   create(game) {
     setInterval(this.drawCircle, 1000);
   }
+
+  onSaveAndNext() {  }
+
   render() {
     if (!this.win) {
       if (this.score >= SCORE_TO_WIN) {
         this.game.debug.text('Вы выиграли', 10, 20);
-        storage.setItem(levelName, {
+        this.onSaveAndNext({
           isDone: true,
-          // TODO можно добавить время прохождения
-          time: ''
         });
-        onNext(true);
       } else {
         this.game.debug.text('Счет: ' + this.score, 10, 20);
       }

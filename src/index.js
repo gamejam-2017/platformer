@@ -12,6 +12,10 @@ import GameMemory from './states/miniGames/GameMemory';
 import * as stateNameLevels from './constants/stateNameLevels'
 import GameSpeed from './states/miniGames/GameSpeed';
 
+import mix from './mixins/mix'
+import timerMixin from './mixins/timerMixin'
+import levelMixin from './mixins/levelMixin'
+
 class Game extends Phaser.Game {
   constructor(element) {
     super(333, 187, Phaser.AUTO, element, {
@@ -19,24 +23,62 @@ class Game extends Phaser.Game {
         this.state.add('Boot', BootState);
         this.state.add('Preload', PreloadState);
         this.state.add('Intro', IntroState);
-        this.state.add(stateNameLevels.GameLevel_1, GameState({
-          levelName: stateNameLevels.GameLevel_1,
+        this.state.add(stateNameLevels.GameLevel_1, mix(GameState({
           playground: 'playground_level',
-          onNext: (isDone) => isDone ? this.state.start(stateNameLevels.GameLevel_2) : this.state.start(stateNameLevels.GameLevel_1)
-        }));
-        this.state.add(stateNameLevels.GameLevel_2, GameMemory({
-          levelName: stateNameLevels.GameLevel_2,
-          onNext: (isDone) => isDone ? this.state.start(stateNameLevels.GameLevel_3) : this.state.start(stateNameLevels.GameLevel_2)
-        }));
-        this.state.add(stateNameLevels.GameLevel_3, GameState({
-          levelName: stateNameLevels.GameLevel_3,
+        })).with(
+          timerMixin(stateNameLevels.GameLevel_1),
+          levelMixin({
+            levelName: stateNameLevels.GameLevel_1,
+            onNext: (isDone) => isDone ? this.state.start(stateNameLevels.GameLevel_2) : this.state.start(stateNameLevels.GameLevel_1)
+          })
+        ));
+        this.state.add(stateNameLevels.GameLevel_2, mix(GameMemory).with(
+          timerMixin(stateNameLevels.GameLevel_2),
+          levelMixin({
+            levelName: stateNameLevels.GameLevel_2,
+            onNext: (isDone) => isDone ? this.state.start(stateNameLevels.GameLevel_3) : this.state.start(stateNameLevels.GameLevel_2)
+          })
+        ));
+        this.state.add(stateNameLevels.GameLevel_3, mix(GameState({
           playground: 'playground_level',
-          onNext: (isDone) => isDone ? this.state.start(stateNameLevels.GameLevel_4) : this.state.start(stateNameLevels.GameLevel_3)
-        }));
-        this.state.add(stateNameLevels.GameLevel_4, GameSpeed({
-          levelName:stateNameLevels.GameLevel_4,
-          onNext: (isDone) => isDone ? this.state.start(stateNameLevels.GameLevel_1) : this.state.start(stateNameLevels.GameLevel_4)
-        }));
+        })).with(
+          timerMixin(stateNameLevels.GameLevel_3),
+          levelMixin({
+            levelName: stateNameLevels.GameLevel_3,
+            onNext: (isDone) => isDone ? this.state.start(stateNameLevels.GameLevel_4) : this.state.start(stateNameLevels.GameLevel_3)
+          })
+        ));
+
+        this.state.add(stateNameLevels.GameLevel_4, mix(GameSpeed).with(
+          timerMixin(stateNameLevels.GameLevel_4),
+          levelMixin({
+            levelName: stateNameLevels.GameLevel_4,
+            onNext: (isDone) => isDone ? this.state.start(stateNameLevels.GameLevel_5) : this.state.start(stateNameLevels.GameLevel_4)
+          })
+        ));
+        this.state.add(stateNameLevels.GameLevel_5, mix(GameState({
+          playground: 'playground_level',
+        })).with(
+          timerMixin(stateNameLevels.GameLevel_5),
+          levelMixin({
+            levelName: stateNameLevels.GameLevel_5,
+            playground: 'playground_level',
+            onNext: (isDone) => isDone ? this.state.start(stateNameLevels.GameLevel_1) : this.state.start(stateNameLevels.GameLevel_5)
+          })
+        ));
+        // this.state.add(stateNameLevels.GameLevel_4, GameSpeed({
+        //   levelName: stateNameLevels.GameLevel_4,
+        //   onNext: (isDone) => isDone ? this.state.start(stateNameLevels.GameLevel_1) : this.state.start(stateNameLevels.GameLevel_4)
+        // }));
+        // this.state.add(stateNameLevels.GameLevel_3, GameState({
+        //   levelName: stateNameLevels.GameLevel_3,
+        //   playground: 'playground_level',
+        //   onNext: (isDone) => isDone ? this.state.start(stateNameLevels.GameLevel_4) : this.state.start(stateNameLevels.GameLevel_3)
+        // }));
+        // this.state.add(stateNameLevels.GameLevel_4, GameSpeed({
+        //   levelName: stateNameLevels.GameLevel_4,
+        //   onNext: (isDone) => isDone ? this.state.start(stateNameLevels.GameLevel_1) : this.state.start(stateNameLevels.GameLevel_4)
+        // }));
         // this.state.add('GameLevel_5', GameState({
         //   levelName: 'level_5',
         //   playground: 'playground_level'

@@ -7,12 +7,10 @@ import Energy from '../prefabs/Energy';
 import Garb from '../prefabs/Garb';
 import Exit from '../prefabs/Exit';
 import storage from '../utils/localStorageFacade';
-
+import { styleWhite } from "../utils/styles";
 
 export default ({
-  levelName,
-  playground,
-  onNext
+  playground
 }) => class GameState extends Phaser.State {
   init() {
     this.game.physics.arcade.gravity.y = 1000;
@@ -25,8 +23,10 @@ export default ({
       garb: 0
     };
   }
+
   create() {
     this.__createLevel();
+    this.groupCollectedResources = this.__collectedResources();
     this.player = this.__createPlayer();
     this.cannons = this.__createCannons();
     this.slimes = this.__createSlimes();
@@ -39,6 +39,25 @@ export default ({
 
     this.game.camera.follow(this.player);
   }
+
+  __collectedResources() {
+    const x = 10;
+    const y = 20;
+    const marginTextTop = 2;
+    const group = this.game.add.group();
+    group.fixedToCamera = true;
+    group.add(new Coin(this.game, x, y));
+    this.coinsText = this.game.add.text(x + 22, y + marginTextTop, this.collectedResources.coins, styleWhite);
+    group.add(new Garb(this.game, x, y * 2));
+    this.garbText = this.game.add.text(x + 22, y * 2 + marginTextTop, this.collectedResources.garb, styleWhite);
+    group.add(new Energy(this.game, x, y * 3));
+    this.energyText = this.game.add.text(x + 22, y * 3 + marginTextTop, this.collectedResources.energy, styleWhite);
+    group.add(this.coinsText);
+    group.add(this.garbText);
+    group.add(this.energyText);
+  }
+  onSaveAndNext() {  }
+
   update() {
     this.game.physics.arcade.collide(this.player, this.collisionLayer);
     this.game.physics.arcade.collide(this.slimes, this.collisionLayer);
@@ -53,10 +72,17 @@ export default ({
     this.game.physics.arcade.overlap(this.player, this.garb, this.__touchGarb, null, this);
     this.game.physics.arcade.overlap(this.player, this.exit, this.__touchExit, null, this);
     this.game.physics.arcade.overlap(this.player, this.cannonBullets, this.__touchCannon, null, this);
+    this.coinsText.text = this.collectedResources.coins;
+    this.garbText.text = this.collectedResources.garb;
+    this.energyText.text = this.collectedResources.energy;
   }
   render(game) {
     // TODO Add debug logic here if needed
-    //this.game.debug.body(this.player);
+    // this.game.debug.text(this.collectedResources.coins, 30, 20);
+    // this.game.debug.text(this.collectedResources.garb, 30, 40);
+    // this.game.debug.text(this.collectedResources.energy, 30, 60);
+
+    // this.game.debug.body(this.player);
   }
   __touchCoin(player, item) {
     item.kill();
@@ -75,14 +101,14 @@ export default ({
       }
       player.damage(enemy.damageValue);
       if (!player.alive) {
-        onNext(false);
+        this.onSaveAndNext({ isDone: false });
       } else {
         player.makeInvincible();
       }
     }
   }
 
-  __touchEnergy(_, item) {
+  __touchEnergy(player, item) {
     item.kill();
     this.collectedResources.energy++;
   }
@@ -92,13 +118,12 @@ export default ({
     this.collectedResources.garb++;
   }
 
-  __touchExit(player, item) {
-    storage.setItem(levelName, {
-      isDone: true,
-      collectedResources: this.collectedResources
-    });
-    onNext(true);
-  }
+    __touchExit(player, item) {
+      this.onSaveAndNext({
+        isDone: true,
+        collectedResources: this.collectedResources
+      });
+    }
 
   __touchCannon(player, item) {
     if (player.invincible) {
@@ -108,13 +133,13 @@ export default ({
     item.kill();
     player.damage(1);
     if (!player.alive) {
-      onNext(false);
+      this.onSaveAndNext({ isDone: false });
     } else {
       player.makeInvincible();
     }
   }
   __createLevel() {
-    this.map = this.add.tilemap('playground_level');
+    this.map = this.add.tilemap(playground);
     this.map.addTilesetImage('game_tiles', 'game_tiles');
     this.map.setCollisionBetween(0, 999, true, 'collision');
 
