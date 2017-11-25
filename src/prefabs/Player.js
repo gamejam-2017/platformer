@@ -5,7 +5,7 @@ export default class Player extends Phaser.TileSprite {
   constructor(game, x, y) {
     super(game, x, y, 21, 21, 'game_tiles', 19);
 
-    this.animations.add('walk', [26,27,28,29], 10, true);
+    this.animations.add('walk', [26, 27, 28, 29], 10, true);
     this.animations.add('idle', [20, 21], 2, true);
 
     game.physics.arcade.enable(this);
@@ -19,7 +19,7 @@ export default class Player extends Phaser.TileSprite {
     this.jumpTimer = 0;
     this.wasStanding = false;
 
-    this.anchor.setTo(.5);
+    this.anchor.setTo(0.5);
   }
   update() {
     this.body.velocity.x = 0;
@@ -40,18 +40,17 @@ export default class Player extends Phaser.TileSprite {
         this.facing = 'right';
         this.tileScale.setTo(1, 1);
       }
-    } else {
-      if (this.facing !== 'idle') {
-        this.play('idle');
-        this.facing = 'idle';
-      }
+    } else if (this.facing !== 'idle') {
+      this.play('idle');
+      this.facing = 'idle';
     }
 
     if (!standing && this.wasStanding) {
       this.edgeTimer = this.game.time.time + 250;
     }
 
-    if ((standing || this.game.time.time <= this.edgeTimer) && this.cursors.up.isDown && this.game.time.time > this.jumpTimer) {
+    if ((standing || this.game.time.time <= this.edgeTimer)
+      && this.cursors.up.isDown && this.game.time.time > this.jumpTimer) {
       this.body.velocity.y = -JUMPING_SPEED;
       this.jumpTimer = this.game.time.time + 750;
       this.play('idle');
@@ -59,4 +58,4 @@ export default class Player extends Phaser.TileSprite {
 
     this.wasStanding = standing;
   }
-};
+}

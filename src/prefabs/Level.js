@@ -6,8 +6,8 @@ export default class Level {
     text,
     isDone
   }) {
-    this.isDone = isDone || false
-    this.text = text || '',
-    this.type = type || levelType.BASE
+    this.isDone = isDone || false;
+    this.text = text || '';
+    this.type = type || levelType.BASE;
   }
 }

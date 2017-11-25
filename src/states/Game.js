@@ -28,7 +28,7 @@ export default class GameState extends Phaser.State {
   }
   render(game) {
     // TODO Add debug logic here if needed
-    //this.game.debug.body(this.player);
+    // this.game.debug.body(this.player);
   }
   __touchCannon(player, bullet) {
     bullet.kill();
@@ -44,6 +44,7 @@ export default class GameState extends Phaser.State {
   }
   __createPlayer() {
     const [ data ] = this.__findObjectsByType('player', 'objects');
+
     return this.game.add.existing(new Player(this.game, data.x, data.y));
   }
   __createCannons() {
@@ -52,6 +53,7 @@ export default class GameState extends Phaser.State {
     cannons.forEach((item) =>
       group.add(new BurgerCannon(this.game, item.x, item.y))
     );
+
     return group;
   }
   __createSlimes() {
@@ -60,6 +62,7 @@ export default class GameState extends Phaser.State {
     slimes.forEach((item) =>
       group.add(new Slime(this.game, item.x, item.y, this.map))
     );
+
     return group;
   }
   __createWaitresses() {
@@ -68,6 +71,7 @@ export default class GameState extends Phaser.State {
     waitresses.forEach((item, index) =>
       group.add(new Waitress(this.game, item.x, item.y, this.map, this.player))
     );
+
     return group;
   }
   __findObjectsByType(targetType, layer) {
@@ -78,6 +82,7 @@ export default class GameState extends Phaser.State {
           y: obj.y - this.map.tileHeight
         });
       }
+
       return acc;
     }, []);
   }

@@ -9,10 +9,12 @@
   "private": true,
   "devDependencies": {
     "babel-core": "^6.26.0",
+    "babel-eslint": "^8.0.2",
     "babel-loader": "^7.1.2",
     "babel-preset-env": "^1.6.1",
     "babel-preset-stage-0": "^6.24.1",
     "copy-webpack-plugin": "^4.2.3",
+    "eslint": "^4.11.0",
     "expose-loader": "^0.7.4",
     "uglifyjs-webpack-plugin": "^1.1.0",
     "webpack": "^3.8.1",
@@ -23,6 +25,8 @@
   },
   "scripts": {
     "start": "webpack-dev-server --content-base build/ --progress --colors --watch",
-    "build": "webpack --progress --colors --env.production"
+    "build": "webpack --progress --colors --env.production",
+    "lint": "eslint src --ext=js,ts,jsx,tsx",
+    "lint:fix": "eslint src --fix --ext=js,ts,jsx,tsx"
   }
 }

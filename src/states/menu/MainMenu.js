@@ -45,6 +45,6 @@ export default class MenuState extends Phaser.State {
         v.index,
         v.index
       );
-    })
+    });
   }
 }

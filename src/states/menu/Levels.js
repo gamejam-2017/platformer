@@ -5,7 +5,7 @@ const marginY = 20;
 const styleText = {
   paddingTop: 16,
   paddingLeft: 19
-}
+};
 export default class LevelsState extends Phaser.State {
   init() {
     this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
@@ -30,7 +30,7 @@ export default class LevelsState extends Phaser.State {
       new Level({
         text: '5'
       })
-    ]
+    ];
   }
   onLevelClick(v) {
     console.log(v.text);
@@ -44,13 +44,25 @@ export default class LevelsState extends Phaser.State {
   }
 
   create(game) {
-    const style = { font: "10px", fill: "#000", align: "center" };
+    const style = { font: '10px', fill: '#000', align: 'center' };
     this.levels.forEach((v, key) => {
       if (v.isDone) {
-        this.game.add.button(marginX + key * 42, marginY, 'levelDoneButtons', this.onLevelDoneClick.bind(this, v), this, 0, 0, 0);
+        this.game.add.button(
+          marginX + key * 42,
+          marginY,
+          'levelDoneButtons',
+          this.onLevelDoneClick.bind(this, v),
+          this, 0, 0, 0);
       } else {
-        this.game.add.button(marginX + key * 42, marginY, 'levelButtons', this.onLevelClick.bind(this, v), this, 0, 0, 0);
-        this.game.add.text(marginX + key * 42 + styleText.paddingLeft, marginY + styleText.paddingTop, v.text, style);
+        this.game.add.button(marginX + key * 42,
+          marginY,
+          'levelButtons',
+          this.onLevelClick.bind(this, v),
+          this, 0, 0, 0);
+        this.game.add.text(marginX + key * 42 + styleText.paddingLeft,
+          marginY + styleText.paddingTop,
+          v.text,
+          style);
       }
 
     });

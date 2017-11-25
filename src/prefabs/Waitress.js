@@ -9,14 +9,14 @@ export default class Waitress extends Phaser.TileSprite {
     this.tilemap = tilemap;
     this.player = player;
 
-    this.animations.add('walk', [116,117,118,119], 10, true);
-    this.animations.add('idle', [110,111], 2, true);
+    this.animations.add('walk', [116, 117, 118, 119], 10, true);
+    this.animations.add('idle', [110, 111], 2, true);
 
     game.physics.arcade.enable(this);
     this.body.collideWorldBounds = true;
     this.body.bounce.set(1, 0);
 
-    this.anchor.setTo(.5);
+    this.anchor.setTo(0.5);
 
     this.mode = Modes.IDLE;
     this.play('idle');
