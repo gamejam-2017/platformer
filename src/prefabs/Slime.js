@@ -1,16 +1,11 @@
-export default class Slime extends Phaser.TileSprite {
-  constructor(game, x, y, tilemap) {
-    super(game, x, y, 21, 21, 'game_tiles', 260);
-    this.tilemap = tilemap;
+import EnemyBase from './EnemyBase';
+
+export default (tilemap, layer) => class Slime extends EnemyBase {
+  constructor(game, x, y) {
+    super(game, x, y, 'game_tiles', 260);
 
     this.animations.add('crawl', [260, 261, 259, 261], 10, true);
-
-    game.physics.arcade.enable(this);
-    this.body.collideWorldBounds = true;
-    this.body.bounce.set(1, 0);
     this.body.velocity.x = -30;
-
-    this.anchor.setTo(0.5);
 
     this.play('crawl');
   }
@@ -18,22 +13,22 @@ export default class Slime extends Phaser.TileSprite {
     let direction;
 
     if (this.body.velocity.x > 0) {
-      this.scale.setTo(-1, 1);
+      this.tileScale.setTo(-1, 1);
       direction = 1;
     } else {
-      this.scale.setTo(1, 1);
+      this.tileScale.setTo(1, 1);
       direction = -1;
     }
 
     const nextX = this.x + direction * (Math.abs(this.width) * 0.5 + 1);
     const nextY = this.bottom + 1;
 
-    const nextTile = this.tilemap.getTileWorldXY(
+    const nextTile = tilemap.getTileWorldXY(
       nextX,
       nextY,
-      this.tilemap.tileWidth,
-      this.tilemap.tileHeight,
-      'collision'
+      tilemap.tileWidth,
+      tilemap.tileHeight,
+      layer
     );
 
     if (!nextTile && this.body.blocked.down) {

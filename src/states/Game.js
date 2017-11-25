@@ -1,6 +1,6 @@
 import Player from '../prefabs/Player';
-import Slime from '../prefabs/Slime';
-import Waitress from '../prefabs/Waitress';
+import slimeFactory from '../prefabs/Slime';
+import waitressFactory from '../prefabs/Waitress';
 import BurgerCannon from '../prefabs/BurgerCannon';
 import Coin from '../prefabs/Coin';
 import Energy from '../prefabs/Energy';
@@ -47,6 +47,7 @@ export default ({
     this.game.physics.arcade.collide(this.energy, this.collisionLayer);
     this.game.physics.arcade.collide(this.garb, this.collisionLayer);
     this.game.physics.arcade.collide(this.exit, this.collisionLayer);
+    this.game.physics.arcade.overlap(this.player, [this.slimes, this.waitresses], this.__touchEnemy, null, this);
     this.game.physics.arcade.overlap(this.player, this.coins, this.__touchCoin, null, this);
     this.game.physics.arcade.overlap(this.player, this.energy, this.__touchEnergy, null, this);
     this.game.physics.arcade.overlap(this.player, this.garb, this.__touchGarb, null, this);
@@ -55,14 +56,33 @@ export default ({
   }
   render(game) {
     // TODO Add debug logic here if needed
-    // this.game.debug.body(this.player);
+    //this.game.debug.body(this.player);
   }
   __touchCoin(player, item) {
     item.kill();
     this.collectedResources.coins++;
   }
+  __touchEnemy(player, enemy) {
+    if (player.body.touching.down && enemy.body.touching.up) {
+      if (enemy.killWithAnimation) {
+        enemy.killWithAnimation();
+      } else {
+        enemy.kill();
+      }
+    } else {
+      if (player.invincible) {
+        return;
+      }
+      player.damage(enemy.damageValue);
+      if (!player.alive) {
+        onNext(false);
+      } else {
+        player.makeInvincible();
+      }
+    }
+  }
 
-  __touchEnergy(player, item) {
+  __touchEnergy(_, item) {
     item.kill();
     this.collectedResources.energy++;
   }
@@ -81,7 +101,17 @@ export default ({
   }
 
   __touchCannon(player, item) {
+    if (player.invincible) {
+      return;
+    }
+
     item.kill();
+    player.damage(1);
+    if (!player.alive) {
+      onNext(false);
+    } else {
+      player.makeInvincible();
+    }
   }
   __createLevel() {
     this.map = this.add.tilemap('playground_level');
@@ -91,79 +121,54 @@ export default ({
     this.decorationsLayer = this.map.createLayer('decorations');
     this.collisionLayer = this.map.createLayer('collision');
     this.collisionLayer.resizeWorld();
+
+    this.map.forEach((tile) => {
+      if (tile) {
+        tile.collideDown = false;
+      }
+    }, this.game, 0, 0, this.map.width, this.map.height, this.collisionLayer);
   }
   __createPlayer() {
     const [data] = this.__findObjectsByType('player', 'players');
-
     return this.game.add.existing(new Player(this.game, data.x, data.y));
   }
   __createCannons() {
-    const group = this.game.add.group();
-    const cannons = this.__findObjectsByType('burger_cannon', 'enemies');
-    cannons.forEach((item) =>
-      group.add(new BurgerCannon(this.game, item.x, item.y))
-    );
-
-    return group;
+    return this.__createObjects('burger_cannon', 'enemies', () => BurgerCannon);
   }
+
   __createSlimes() {
-    const group = this.game.add.group();
-    const slimes = this.__findObjectsByType('slime', 'enemies');
-    slimes.forEach((item) =>
-      group.add(new Slime(this.game, item.x, item.y, this.map))
-    );
-
-    return group;
+    return this.__createObjects('slime', 'enemies', () => slimeFactory(this.map, 'collision'))
   }
-  __createWaitresses() {
-    const group = this.game.add.group();
-    const waitresses = this.__findObjectsByType('waitress', 'enemies');
-    waitresses.forEach((item, index) =>
-      group.add(new Waitress(this.game, item.x, item.y, this.map, this.player))
-    );
 
-    return group;
+  __createWaitresses() {
+    return this.__createObjects('waitress', 'enemies', () => waitressFactory(this.player))
   }
 
   __createCoin() {
-    const group = this.game.add.group();
-    group.enableBody = true;
-    const items = this.__findObjectsByType('coin', 'collection');
-    items.forEach((item, index) =>
-      group.add(new Coin(this.game, item.x, item.y, this.map))
-    );
-    return group;
+    return this.__createObjects('coin', 'collection', () => Coin, true);
   }
 
   __createEnergy() {
-    const group = this.game.add.group();
-    group.enableBody = true;
-    const items = this.__findObjectsByType('energy', 'collection');
-    items.forEach((item, index) =>
-      group.add(new Energy(this.game, item.x, item.y, this.map))
-    );
-
-    return group;
+    return this.__createObjects('energy', 'collection', () => Energy, true);
   }
 
-
   __createGarb() {
-    const group = this.game.add.group();
-    group.enableBody = true;
-    const items = this.__findObjectsByType('garb', 'collection');
-    items.forEach((item, index) =>
-      group.add(new Garb(this.game, item.x, item.y, this.map))
-    );
-
-    return group;
+    return this.__createObjects('garb', 'collection', () => Garb, true);
   }
 
   __createExit() {
+    return this.__createObjects('exit', 'Exit', () => Exit, true);
+  }
+
+  __createObjects(type, layer, factoryFn, enableBody=false) {
     const group = this.game.add.group();
-    group.enableBody = true;
-    const items = this.__findObjectsByType('exit', 'Exit');
-    items.forEach((item, index) =>
-      group.add(new Exit(this.game, item.x, item.y, this.map))
+    group.enableBody = enableBody;
+
+    const Clazz = factoryFn();
+
+    const items = this.__findObjectsByType(type, layer);
+    items.forEach((item) =>
+      group.add(new Clazz(this.game, item.x, item.y))
     );
 
     return group;
