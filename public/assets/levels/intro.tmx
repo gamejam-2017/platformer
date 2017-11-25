@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="20" height="10" tilewidth="21" tileheight="21" backgroundcolor="#00aaff" nextobjectid="67">
+<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="20" height="10" tilewidth="21" tileheight="21" backgroundcolor="#00aaff" nextobjectid="81">
  <tileset firstgid="1" name="game_tiles" tilewidth="21" tileheight="21" spacing="2" margin="2" tilecount="900" columns="30">
   <image source="../images/spritesheet.png" width="692" height="692"/>
  </tileset>
  <layer name="environment" width="20" height="10">
   <data encoding="base64" compression="zlib">
-   eJxjYKA+WEsDM0cBblDORD2z5gLNagDi+VQysx5ozjwgbsRhnj6UFsKhH108F4gr8LithgCuBWJuJFxNQD0AjXkOJA==
+   eJxjYKA+WEsDM0cBblDORD2z5gLNagDi+VQysx5ozjwgbsRhnjAOfbjEc4G4AmqWPlRMCEmehQBmBWJuJFwNxDV4MAB9JgoA
   </data>
  </layer>
  <objectgroup name="scene 1" visible="0">
@@ -17,17 +17,29 @@
   <object id="61" gid="2147483699" x="336" y="189" width="21" height="21"/>
  </objectgroup>
  <objectgroup name="scene 3" visible="0">
-  <object id="48" gid="60" x="344" y="189" width="21" height="21"/>
   <object id="56" gid="27" x="72.5" y="189" width="21" height="21"/>
   <object id="57" gid="374" x="89.9913" y="163.139" width="10" height="10" rotation="-15.2509"/>
   <object id="58" gid="374" x="94.6905" y="147.296" width="8" height="8" rotation="6.47178"/>
   <object id="60" gid="374" x="88.3216" y="137.956" width="6" height="6" rotation="-8.81683"/>
+  <object id="67" gid="2147483705" x="330" y="188.5" width="21" height="21"/>
+  <object id="69" gid="374" x="325.985" y="166.591" width="10" height="10" rotation="-15.2509"/>
+  <object id="70" gid="374" x="328.316" y="146.908" width="6" height="6" rotation="-8.81683"/>
+  <object id="71" gid="374" x="334.232" y="154.59" width="8" height="8" rotation="-345.428"/>
+  <object id="72" gid="374" x="331.801" y="135.84" width="4" height="4" rotation="-363.634"/>
  </objectgroup>
  <objectgroup name="scene 4" visible="0">
-  <object id="63" gid="24" x="70.5" y="188" width="21" height="21"/>
-  <object id="65" gid="59" x="370.5" y="189" width="21" height="21"/>
+  <object id="76" gid="27" x="72.5" y="189" width="21" height="21"/>
+  <object id="77" gid="750" x="99.5" y="176" width="21" height="21"/>
+  <object id="79" gid="2147483702" x="338" y="184" width="21" height="21"/>
  </objectgroup>
- <objectgroup name="scene 5">
-  <object id="66" gid="28" x="151" y="189" width="21" height="21"/>
+ <objectgroup name="scene 5" visible="0">
+  <object id="63" gid="24" x="70.5" y="188" width="21" height="21"/>
+  <object id="65" gid="59" x="409.5" y="189" width="21" height="21"/>
+ </objectgroup>
+ <objectgroup name="scene 6" visible="0">
+  <object id="66" gid="28" x="193" y="173" width="21" height="21"/>
+ </objectgroup>
+ <objectgroup name="scene 7">
+  <object id="80" gid="28" x="392.5" y="188.5" width="21" height="21"/>
  </objectgroup>
 </map>

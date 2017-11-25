@@ -14,6 +14,8 @@ export default class IntroState extends Phaser.State {
     game.load.image('scene_3', 'assets/images/intro/scene-3.png');
     game.load.image('scene_4', 'assets/images/intro/scene-4.png');
     game.load.image('scene_5', 'assets/images/intro/scene-5.png');
+    game.load.image('scene_6', 'assets/images/intro/scene-6.png');
+    game.load.image('scene_7', 'assets/images/intro/scene-7.png');
   }
   create(game) {
     this.pictureA = this.__createPicture(game.world.centerX, game.world.centerY, 'scene_1');
@@ -48,10 +50,10 @@ export default class IntroState extends Phaser.State {
 
     this.current++;
 
-    if (this.current > 6) { // TODO Fix missing sprite bug
-      this.timer.add(2000, this.__startGame, this);
+    if (this.current > 8) { // TODO Fix missing sprite bug
+      this.timer.add(1000, this.__startGame, this);
     } else {
-      this.timer.add(2000, this.__fade, this);
+      this.timer.add(1000, this.__fade, this);
     }
   }
   __startGame() {
