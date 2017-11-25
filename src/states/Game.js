@@ -36,6 +36,7 @@ export default ({
     this.garb = this.__createGarb();
     this.exit = this.__createExit();
     this.cannonBullets = this.cannons.children.map((cannon) => cannon.getWeapon().bullets);
+    this.healthHud = this.__createHealth();
 
     this.game.camera.follow(this.player);
   }
@@ -75,6 +76,8 @@ export default ({
     this.coinsText.text = this.collectedResources.coins;
     this.garbText.text = this.collectedResources.garb;
     this.energyText.text = this.collectedResources.energy;
+
+    this.__updateHealth();
   }
   render(game) {
     // TODO Add debug logic here if needed
@@ -82,7 +85,7 @@ export default ({
     // this.game.debug.text(this.collectedResources.garb, 30, 40);
     // this.game.debug.text(this.collectedResources.energy, 30, 60);
 
-    // this.game.debug.body(this.player);
+    this.game.debug.body(this.player);
   }
   __touchCoin(player, item) {
     item.kill();
@@ -131,7 +134,9 @@ export default ({
     }
 
     item.kill();
-    player.damage(1);
+    //player.damage(1);
+    player.addWeight(1);
+
     if (!player.alive) {
       this.onSaveAndNext({ isDone: false });
     } else {
@@ -153,6 +158,25 @@ export default ({
       }
     }, this.game, 0, 0, this.map.width, this.map.height, this.collisionLayer);
   }
+  __createHealth() {
+    const group = this.game.add.group();
+    group.fixedToCamera = true;
+
+    for (let i = 0; i < 3; i++) {
+      group.add(new Phaser.TileSprite(this.game, i * 21 + 10, 0, 21, 21, 'game_tiles', 375));
+    }
+
+    return group;
+  }
+
+  __updateHealth() {
+    this.healthHud.forEach((heart) => heart.frame = 375);
+
+    for (let i = 0; i < this.player.health; i++) {
+      this.healthHud.children[i].frame = 373;
+    }
+  }
+
   __createPlayer() {
     const [data] = this.__findObjectsByType('player', 'players');
     return this.game.add.existing(new Player(this.game, data.x, data.y));
