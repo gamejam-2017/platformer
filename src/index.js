@@ -8,9 +8,11 @@ import GameState from './states/Game';
 import MainMenuState from './states/menu/MainMenu';
 import LevelsMenuState from './states/menu/Levels';
 
+
+
 class Game extends Phaser.Game {
   constructor(element) {
-    super(420, 210, Phaser.AUTO, element, {
+    super(333, 187, Phaser.AUTO, element, {
       create() {
         this.state.add('Boot', BootState);
         this.state.add('Preload', PreloadState);

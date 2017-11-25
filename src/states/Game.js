@@ -1,6 +1,8 @@
 import Player from '../prefabs/Player';
 import Slime from '../prefabs/Slime';
+import Waitress from '../prefabs/Waitress';
 import BurgerCannon from '../prefabs/BurgerCannon';
+
 
 export default class GameState extends Phaser.State {
   init() {
@@ -10,14 +12,18 @@ export default class GameState extends Phaser.State {
   }
   create() {
     this.__createLevel();
-    this.__createPlayer();
+    this.player = this.__createPlayer();
     this.cannons = this.__createCannons();
     this.slimes = this.__createSlimes();
+    this.waitresses = this.__createWaitresses();
     this.cannonBullets = this.cannons.children.map((cannon) => cannon.getWeapon().bullets);
+
+    this.game.camera.follow(this.player);
   }
   update() {
     this.game.physics.arcade.collide(this.player, this.collisionLayer);
     this.game.physics.arcade.collide(this.slimes, this.collisionLayer);
+    this.game.physics.arcade.collide(this.waitresses, this.collisionLayer);
     this.game.physics.arcade.overlap(this.player, this.cannonBullets, this.__touchCannon);
   }
   render(game) {
@@ -37,12 +43,12 @@ export default class GameState extends Phaser.State {
     this.collisionLayer.resizeWorld();
   }
   __createPlayer() {
-    this.player = this.game.add.existing(new Player(this.game, 0, 42));
-    this.game.camera.follow(this.player);
+    const [ data ] = this.__findObjectsByType('player', 'objects');
+    return this.game.add.existing(new Player(this.game, data.x, data.y));
   }
   __createCannons() {
     const group = this.game.add.group();
-    const cannons = this.__findObjectsByType('burger_cannon');
+    const cannons = this.__findObjectsByType('burger_cannon', 'enemies');
     cannons.forEach((item) =>
       group.add(new BurgerCannon(this.game, item.x, item.y))
     );
@@ -50,15 +56,22 @@ export default class GameState extends Phaser.State {
   }
   __createSlimes() {
     const group = this.game.add.group();
-    const slimes = this.__findObjectsByType('slime');
-    console.log('SSS', slimes);
+    const slimes = this.__findObjectsByType('slime', 'enemies');
     slimes.forEach((item) =>
       group.add(new Slime(this.game, item.x, item.y, this.map))
     );
     return group;
   }
-  __findObjectsByType(targetType) {
-    return this.map.objects['objects'].reduce((acc, obj) => {
+  __createWaitresses() {
+    const group = this.game.add.group();
+    const waitresses = this.__findObjectsByType('waitress', 'enemies');
+    waitresses.forEach((item, index) =>
+      group.add(new Waitress(this.game, item.x, item.y, this.map, this.player))
+    );
+    return group;
+  }
+  __findObjectsByType(targetType, layer) {
+    return this.map.objects[layer].reduce((acc, obj) => {
       if (obj.type === targetType) {
         return acc.concat({
           ...obj,
