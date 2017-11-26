@@ -15,6 +15,7 @@ export default class PreloadState extends Phaser.State {
     this.load.tilemap('playground_level', './assets/levels/playground.json', null, Phaser.Tilemap.TILED_JSON);
     this.load.tilemap('level_1', './assets/levels/level-1.json', null, Phaser.Tilemap.TILED_JSON);
     this.load.tilemap('level_3', './assets/levels/level_3.json', null, Phaser.Tilemap.TILED_JSON);
+    this.load.tilemap('level_5', './assets/levels/level_5.json', null, Phaser.Tilemap.TILED_JSON);
   }
   create(game) {
     this.state.start('LevelsMenu')//'MainMenu');
