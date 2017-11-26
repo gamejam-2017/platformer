@@ -1,7 +1,7 @@
 import Player from '../prefabs/Player';
 import crawlerFactory from '../prefabs/Crawler';
 import waitressFactory from '../prefabs/Waitress';
-import BurgerCannon from '../prefabs/BurgerCannon';
+import cannonFactory from '../prefabs/BurgerCannon';
 import Coin from '../prefabs/Coin';
 import Energy from '../prefabs/Energy';
 import Veggie from '../prefabs/Veggie';
@@ -192,7 +192,7 @@ export default ({
   }
 
   __createCannons() {
-    return this.__createObjects('burger_cannon', 'enemies', () => BurgerCannon);
+    return this.__createObjects('burger_cannon', 'enemies', () => cannonFactory(this.player));
   }
 
   __createSlimes() {

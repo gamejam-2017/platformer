@@ -1,6 +1,6 @@
 const BULLET_SPEED = 100;
 
-export default class BurgerCannon extends Phaser.TileSprite {
+export default (player) => class BurgerCannon extends Phaser.TileSprite {
   constructor(game, x, y) {
     super(game, x, y, 21, 21, 'game_tiles', 858);
 
@@ -15,8 +15,10 @@ export default class BurgerCannon extends Phaser.TileSprite {
     game.time.events.loop(
       game.rnd.integerInRange(2000, 4000),
       () => {
-        this.play('shoot');
-        this.weapon.fire();
+        if (this.game.physics.arcade.distanceBetween(this, player) < 210 && player.x < this.x) {
+          this.play('shoot');
+          this.weapon.fire();
+        }
       }
     );
   }
@@ -36,4 +38,4 @@ export default class BurgerCannon extends Phaser.TileSprite {
 
     return weapon;
   }
-}
+};
