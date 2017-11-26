@@ -7,6 +7,7 @@ export default class GameMemory extends Phaser.State {
     this.secondTile = null;
     this.canPick = true;
     this.game.stage.backgroundColor = '#888888';
+    this.images = [81, 111, 141, 354, 373, 379, 779, 749];
   }
   onSaveAndNext() {  }
 
@@ -20,7 +21,7 @@ export default class GameMemory extends Phaser.State {
         chosenTiles.push(candidate,candidate)
       }
     }
-    // shuffle the chosen tiles
+
     for(let i=0;i<32;i++){
       let from = Math.floor(Math.random()*16);
       let to = Math.floor(Math.random()*16);
@@ -35,7 +36,7 @@ export default class GameMemory extends Phaser.State {
         tile.inputEnabled  = true;
         tile.interactive = true;
         tile.isSelected = false;
-        tile.theVal = 2 + chosenTiles[i*4+j]*2;
+        tile.theVal = this.images[chosenTiles[i*4+j]];
         tile.alpha = 0.5;
         tile.events.onInputDown.add((data) => {
           if(this.canPick) {
