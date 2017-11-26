@@ -11,6 +11,7 @@ import LevelsMenuState from './states/menu/Levels';
 import GameMemory from './states/miniGames/GameMemory';
 import * as stateNameLevels from './constants/stateNameLevels'
 import GameSpeed from './states/miniGames/GameSpeed';
+import GameFood from './states/miniGames/GameFood';
 
 import mix from './mixins/mix'
 import timerMixin from './mixins/timerMixin'
@@ -65,9 +66,7 @@ class Game extends Phaser.Game {
             onNext: (isDone) => isDone ? this.state.start(stateNameLevels.GameLevel_1) : this.state.start(stateNameLevels.GameLevel_5)
           })
         ));
-        this.state.add(stateNameLevels.GameLevel_6, mix(GameState({
-          playground: 'level_5',
-        })).with(
+        this.state.add(stateNameLevels.GameLevel_6, mix(GameFood).with(
           timerMixin(stateNameLevels.GameLevel_6),
           levelMixin({
             levelName: stateNameLevels.GameLevel_6,

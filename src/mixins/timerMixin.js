@@ -6,8 +6,8 @@ export default function(levelName) {
     let counter = 0;
     let time;
     return class extends SuperClass {
-      create() {
-        super.create();
+      create(game) {
+        super.create(game);
         const timerText = this.game.add.text(this.game.width - 50, 10, `${counter} сек`, styleWhite);
         timerText.fixedToCamera = true;
         time = this.game.time.events.loop(Phaser.Timer.SECOND, () => {
