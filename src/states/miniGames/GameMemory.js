@@ -1,4 +1,4 @@
-import PIXI from 'expose-loader?PIXI!phaser-ce/build/custom/pixi.js';
+//import PIXI from 'expose-loader?PIXI!phaser-ce/build/custom/pixi.js';
 const DEFAULT_FRAME = 193;
 
 export default class GameMemory extends Phaser.State {

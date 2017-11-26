@@ -4,6 +4,7 @@ import waitressFactory from '../prefabs/Waitress';
 import BurgerCannon from '../prefabs/BurgerCannon';
 import Coin from '../prefabs/Coin';
 import Energy from '../prefabs/Energy';
+import Veggie from '../prefabs/Veggie';
 import Garb from '../prefabs/Garb';
 import Exit from '../prefabs/Exit';
 import storage from '../utils/localStorageFacade';
@@ -35,6 +36,7 @@ export default ({
     this.waitresses = this.__createWaitresses();
     this.coins = this.__createCoin();
     this.energy = this.__createEnergy();
+    this.veggies = this.__createVeggie();
     this.garb = this.__createGarb();
     this.exit = this.__createExit();
     this.cannonBullets = this.cannons.children.map((cannon) => cannon.getWeapon().bullets);
@@ -68,6 +70,7 @@ export default ({
     this.game.physics.arcade.overlap(this.player, [this.slimes, this.mice, this.worms, this.waitresses], this.__touchEnemy, null, this);
     this.game.physics.arcade.overlap(this.player, this.coins, this.__touchCoin, null, this);
     this.game.physics.arcade.overlap(this.player, this.energy, this.__touchEnergy, null, this);
+    this.game.physics.arcade.overlap(this.player, this.veggies, this.__touchVeggie, null, this);
     this.game.physics.arcade.overlap(this.player, this.garb, this.__touchGarb, null, this);
     this.game.physics.arcade.overlap(this.player, this.exit, this.__touchExit, null, this);
     this.game.physics.arcade.overlap(this.player, this.cannonBullets, this.__touchCannon, null, this);
@@ -96,23 +99,23 @@ export default ({
     this.collectedResources.coins++;
   }
   __touchEnemy(player, enemy) {
-    /*if (player.body.touching.down && enemy.body.touching.up) {
-      if (enemy.killWithAnimation) {
+    if (player.body.touching.down && enemy.body.touching.up) {
+      /*if (enemy.killWithAnimation) {
         enemy.killWithAnimation();
       } else {
         enemy.kill();
+      }*/
+      player.body.velocity.y = -200;
+    } else {
+      if (player.invincible) {
+        return;
       }
-    } else {
-
-    }*/
-    if (player.invincible) {
-      return;
-    }
-    player.damage(enemy.damageValue);
-    if (!player.alive) {
-      this.onSaveAndNext({ isDone: false });
-    } else {
-      player.makeInvincible();
+      player.damage(enemy.damageValue);
+      if (!player.alive) {
+        this.onSaveAndNext({ isDone: false });
+      } else {
+        player.makeInvincible();
+      }
     }
   }
 
@@ -126,12 +129,17 @@ export default ({
     this.collectedResources.garb++;
   }
 
-    __touchExit(player, item) {
-      this.onSaveAndNext({
-        isDone: true,
-        collectedResources: this.collectedResources
-      });
-    }
+  __touchExit(player, item) {
+    this.onSaveAndNext({
+      isDone: true,
+      collectedResources: this.collectedResources
+    });
+  }
+
+  __touchVeggie(player, item) {
+    item.kill();
+    player.restoreHealth();
+  }
 
   __touchCannon(player, item) {
     if (player.invincible) {
@@ -139,7 +147,6 @@ export default ({
     }
 
     item.kill();
-    //player.damage(1);
     player.addWeight(1);
 
     if (!player.alive) {
@@ -225,6 +232,10 @@ export default ({
 
   __createGarb() {
     return this.__createObjects('garb', 'collection', () => Garb, true, false);
+  }
+
+  __createVeggie() {
+    return this.__createObjects('veggie', 'collection', () => Veggie, true, false);
   }
 
   __createExit() {

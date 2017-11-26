@@ -53,7 +53,7 @@ class Game extends Phaser.Game {
           timerMixin(stateNameLevels.GameLevel_4),
           levelMixin({
             levelName: stateNameLevels.GameLevel_4,
-            onNext: (isDone) => isDone ? this.state.start(stateNameLevels.GameLevel_5) : this.state.start(stateNameLevels.GameLevel_4)
+            onNext: (isDone) => isDone ? this.state.start(stateNameLevels.GameLevel_1) : this.state.start(stateNameLevels.GameLevel_4)
           })
         ));
         this.state.add(stateNameLevels.GameLevel_5, mix(GameState({

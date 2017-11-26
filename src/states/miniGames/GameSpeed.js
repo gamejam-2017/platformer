@@ -13,7 +13,8 @@ export default class GameSpeed extends Phaser.State {
     this.win = false;
   }
   create(game) {
-    setInterval(this.drawCircle, 1000);
+    this.game.time.events.loop(Phaser.Timer.SECOND, this.drawCircle, this);
+    //setInterval(this.drawCircle, 1000);
   }
 
   onSaveAndNext() {  }

@@ -24,9 +24,10 @@ export default class BurgerCannon extends Phaser.TileSprite {
     return this.weapon;
   }
   __createWeapon() {
-    const weapon = this.game.add.weapon(20, 'game_tiles', 627);
+    const weapon = this.game.add.weapon(20, 'game_tiles', 779);
     weapon.bulletKillType = Phaser.Weapon.KILL_WORLD_BOUNDS;
     weapon.bulletKillDistance = 630;
+    weapon.bulletAngleOffset = 180;
     weapon.bulletSpeed = BULLET_SPEED;
     weapon.fireAngle = -180;
     weapon.autofire = false;

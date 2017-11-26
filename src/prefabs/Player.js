@@ -35,6 +35,10 @@ export default class Player extends Phaser.TileSprite {
       this.__weight += 0.5;
     }
   }
+  restoreHealth() {
+    this.health = 3;
+    this.__weight = 1;
+  }
   makeInvincible() {
     this.__invincible = true;
     this.game.time.events.add(2000, () => this.__invincible = false);

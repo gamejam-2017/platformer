@@ -71,8 +71,8 @@
                  "type":"coin",
                  "visible":true,
                  "width":21,
-                 "x":405.833333333333,
-                 "y":264.333666666667
+                 "x":405.833,
+                 "y":264.334
                 }, 
                 {
                  "gid":79,
@@ -95,8 +95,8 @@
                  "type":"coin",
                  "visible":true,
                  "width":21,
-                 "x":251.333333333333,
-                 "y":273.333333333333
+                 "x":251.333,
+                 "y":273.333
                 }, 
                 {
                  "gid":79,
@@ -108,7 +108,7 @@
                  "visible":true,
                  "width":21,
                  "x":61.5,
-                 "y":245.666666666667
+                 "y":245.667
                 }, 
                 {
                  "gid":79,
@@ -409,9 +409,33 @@
                  "width":21,
                  "x":651,
                  "y":231
+                }, 
+                {
+                 "gid":810,
+                 "height":21,
+                 "id":123,
+                 "name":"",
+                 "rotation":0,
+                 "type":"veggie",
+                 "visible":true,
+                 "width":21,
+                 "x":819,
+                 "y":231
+                }, 
+                {
+                 "gid":810,
+                 "height":21,
+                 "id":124,
+                 "name":"",
+                 "rotation":0,
+                 "type":"veggie",
+                 "visible":true,
+                 "width":21,
+                 "x":1197,
+                 "y":273
                 }],
-         "offsetx":-0.303026666666685,
-         "offsety":-0.84846666666667,
+         "offsetx":-0.303027,
+         "offsety":-0.848467,
          "opacity":1,
          "type":"objectgroup",
          "visible":true,
@@ -523,8 +547,8 @@
                  "type":"slime",
                  "visible":true,
                  "width":21,
-                 "x":105.666666666667,
-                 "y":270.333333333333
+                 "x":105.667,
+                 "y":270.333
                 }, 
                 {
                  "gid":110,
@@ -592,7 +616,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":123,
+ "nextobjectid":125,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.0.3",
