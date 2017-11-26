@@ -100,7 +100,6 @@ export default class GameFood extends Phaser.State {
     }
   };
   handleStartTimer = () => {
-    this.timer = 0;
     if (this.draggedFood[BOIL].length) {
       this.preparedFood[BOIL] = this.draggedFood[BOIL];
       this.draggedFood[BOIL] = [];
@@ -113,12 +112,74 @@ export default class GameFood extends Phaser.State {
       this.fry.alive = false;
       this.fry.destroy();
     }
-    console.log('preparedFood', this.preparedFood);
-    console.log('draggedFood', this.draggedFood);
-    this.game.add.button(7, 68, 'timerButtons', this.countScore, this, 3, 3, 3);
+    this.game.add.button(7, 68, 'timerButtons', this.countScore(this.timer), this, 3, 3, 3);
+    this.timer = 0;
   };
-  countScore = () => {
-    //TODO: добавить логику подсчёта рейтинга приготовленной еды
+  countScore = (time) => () => {
+    let food = this.preparedFood;
+    let score = [];
+    let mainRating = 0;
+    let hasProduct = (arr, name) => arr.findIndex((val) => val.name === name) !== -1;
+
+    if (food.fry.length) {
+      let result = 0;
+      if (hasProduct(food.fry, 'lemon')) {
+        ++result;
+      }
+      if (hasProduct(food.fry, 'fish') ^ hasProduct(food.fry, 'chicken')) {
+        result += 3;
+        if (hasProduct(food.fry, 'fish') && time >= 5 && time <= 15) {
+          result += 2;
+        } else {
+          result -= 1;
+        }
+        if (hasProduct(food.fry, 'chicken') && time >= 15 && time <= 30) {
+          result += 2;
+        } else {
+          result -= 1;
+        }
+      }
+      if (hasProduct(food.fry, 'milk')) {
+        result = Math.max(0, result - 2);
+      }
+      score.push(result);
+    }
+
+    if (food.boil.length) {
+      let result = 0;
+      if (hasProduct(food.boil, 'soda')) {
+        ++result;
+      }
+      if (hasProduct(food.boil, 'fish') ^ hasProduct(food.boil, 'chicken')) {
+        result += 3;
+        if (hasProduct(food.boil, 'fish') && time >= 10 && time <= 30) {
+          result += 2;
+        } else {
+          result -= 1;
+        }
+        if (hasProduct(food.boil, 'chicken') && time >= 35 && time <= 60) {
+          result += 2;
+        } else {
+          result -= 1;
+        }
+      }
+      if (hasProduct(food.boil, 'milk')) {
+        result = Math.max(0, result - 2);
+      }
+      score.push(result);
+    }
+
+    if (score.length === 2) {
+      mainRating = 1 + (score[0] + score[1]) / 2
+    } else {
+      mainRating = score[0];
+    }
+
+    if (mainRating >= 3) {
+      console.log('Вы выиграли');
+    } else {
+      console.log('Вы проиграли');
+    }
   };
   startDrag = (sprite) => {
     this.setText(sprite.product.name, 10, 15);
@@ -145,6 +206,3 @@ export default class GameFood extends Phaser.State {
     this.game.debug.text(text, x, y, '#ffffff', '12px Arial');
   };
 }
-
-
-
