@@ -5,6 +5,7 @@ import Phaser from 'expose-loader?Phaser!phaser-ce/build/custom/phaser-split.js'
 import BootState from './states/Boot';
 import PreloadState from './states/Preload';
 import IntroState from './states/Intro';
+import EndState from './states/end';
 import GameState from './states/Game';
 import MainMenuState from './states/menu/MainMenu';
 import LevelsMenuState from './states/menu/Levels';
@@ -24,6 +25,7 @@ class Game extends Phaser.Game {
         this.state.add('Boot', BootState);
         this.state.add('Preload', PreloadState);
         this.state.add('Intro', IntroState);
+        this.state.add('End', EndState);
         this.state.add(stateNameLevels.GameLevel_1, mix(GameState({
           playground: 'level_1',
         })).with(

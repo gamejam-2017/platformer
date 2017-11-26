@@ -176,8 +176,10 @@ export default class GameFood extends Phaser.State {
     }
 
     if (mainRating >= 3) {
+      this.state.start('End');
       console.log('Вы выиграли');
     } else {
+      this.state.start('End');
       console.log('Вы проиграли');
     }
   };
