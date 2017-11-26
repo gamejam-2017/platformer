@@ -24,6 +24,8 @@ export default function(levelName) {
 
         storageInfo.time = counter;
         storage.setItem(levelName, storageInfo)
+
+        counter = 0;
       }
     }
   }

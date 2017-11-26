@@ -57,7 +57,7 @@ export default class GameMemory extends Phaser.State {
                     this.firstTile=null;
                     this.secondTile=null;
                     this.canPick=true;
-                    if (findTilesCount === 2) {
+                    if (findTilesCount === 16) {
                       this.onSaveAndNext({
                         isDone: true,
                       });

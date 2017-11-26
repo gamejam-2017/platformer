@@ -1,11 +1,11 @@
 import EnemyBase from './EnemyBase';
 
-export default (tilemap, layer) => class Slime extends EnemyBase {
+export default (tilemap, layer, frame, crawlFrames, frameRate=10, velocity=30) => class Crawler extends EnemyBase {
   constructor(game, x, y) {
-    super(game, x, y, 'game_tiles', 260);
+    super(game, x, y, 'game_tiles', frame);
 
-    this.animations.add('crawl', [260, 261, 259, 261], 10, true);
-    this.body.velocity.x = -30;
+    this.animations.add('crawl', crawlFrames, frameRate, true);
+    this.body.velocity.x = velocity;
 
     this.play('crawl');
   }

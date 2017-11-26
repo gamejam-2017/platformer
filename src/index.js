@@ -24,7 +24,7 @@ class Game extends Phaser.Game {
         this.state.add('Preload', PreloadState);
         this.state.add('Intro', IntroState);
         this.state.add(stateNameLevels.GameLevel_1, mix(GameState({
-          playground: 'playground_level',
+          playground: 'level_1',
         })).with(
           timerMixin(stateNameLevels.GameLevel_1),
           levelMixin({
