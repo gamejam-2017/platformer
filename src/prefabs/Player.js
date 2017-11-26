@@ -1,5 +1,6 @@
-const RUNNING_SPEED = 100;
+const RUNNING_SPEED = 200;
 const JUMPING_SPEED = 400;
+const MAX_WEIGHT = 2.5;
 
 export default class Player extends Phaser.TileSprite {
   constructor(game, x, y) {
@@ -23,10 +24,16 @@ export default class Player extends Phaser.TileSprite {
 
     this.health = 3;
 
+    this.__weight = 1;
     this.__invincible = false;
   }
   get invincible() {
     return this.__invincible;
+  }
+  addWeight() {
+    if (this.__weight < MAX_WEIGHT) {
+      this.__weight += 0.5;
+    }
   }
   makeInvincible() {
     this.__invincible = true;
@@ -40,14 +47,14 @@ export default class Player extends Phaser.TileSprite {
     const standing = this.body.blocked.down || this.body.touching.down;
 
     if (this.cursors.left.isDown) {
-      this.body.velocity.x = -RUNNING_SPEED;
+      this.body.velocity.x = -RUNNING_SPEED / this.__weight * .5;
       this.play('walk');
       if (this.facing !== 'left') {
         this.facing = 'left';
         this.tileScale.setTo(-1, 1);
       }
     } else if (this.cursors.right.isDown) {
-      this.body.velocity.x = RUNNING_SPEED;
+      this.body.velocity.x = RUNNING_SPEED / this.__weight * .5;
       this.play('walk');
       if (this.facing !== 'right') {
         this.facing = 'right';
