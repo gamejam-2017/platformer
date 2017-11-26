@@ -13,7 +13,7 @@ export default class BurgerCannon extends Phaser.TileSprite {
     this.animations.add('shoot', [860, 858], 10);
 
     game.time.events.loop(
-      game.rnd.integerInRange(1500, 2000),
+      game.rnd.integerInRange(2000, 4000),
       () => {
         this.play('shoot');
         this.weapon.fire();

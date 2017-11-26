@@ -40,7 +40,7 @@ class Game extends Phaser.Game {
           })
         ));
         this.state.add(stateNameLevels.GameLevel_3, mix(GameState({
-          playground: 'playground_level',
+          playground: 'level_3',
         })).with(
           timerMixin(stateNameLevels.GameLevel_3),
           levelMixin({
