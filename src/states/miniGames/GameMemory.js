@@ -31,7 +31,8 @@ export default class GameMemory extends Phaser.State {
 
     for(let i = 0;i < 4; ++i){
       for(let j = 0;j < 4; ++j){
-        let tile = this.game.add.tileSprite(9+i*23, 9+j*23, 21, 21, 'game_tiles', DEFAULT_FRAME);
+        let tile = this.game.add.tileSprite(110+i*46, 18+j*46, 21, 21, 'game_tiles', DEFAULT_FRAME);
+        tile.scale.set(2, 2);
         tile.buttonMode = true;
         tile.inputEnabled  = true;
         tile.interactive = true;

@@ -189,7 +189,7 @@ export default class GameFood extends Phaser.State {
   };
   stopDrag = (sprite) => {
     this.setText('', 0, 0);
-    if (sprite.y >= 110 && sprite.y <= 160) {
+    if (sprite.y >= 135 && sprite.y <= 180) {
       if (sprite.x >= 130 && sprite.x <= 160 && this.fry.alive) {
         sprite.inputEnabled = false;
         sprite.alpha = 0;

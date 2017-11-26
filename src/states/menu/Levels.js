@@ -13,12 +13,8 @@ const styleWhite = { font: '13px', fill: '#fff', align: 'center' };
 
 export default class LevelsState extends Phaser.State {
   init() {
-    this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-    this.scale.pageAlignHorizontally = true;
-    this.scale.pageAlignVertically = true;
-
     this.game.stage.backgroundColor = 'blue';
-    const dataByStorage = storage.getData()
+    const dataByStorage = storage.getData();
     this.levels = [
       new Level({
         text: '1',
