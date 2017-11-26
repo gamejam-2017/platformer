@@ -15,7 +15,6 @@ export default ({
 }) => class GameState extends Phaser.State {
   init() {
     this.game.physics.arcade.gravity.y = 1000;
-    this.game.stage.backgroundColor = '#2f9acc';
     this.cannons = this.game.add.group(this, 'cannons', true, true);
     // Собранные ресурсы на уровне
     this.collectedResources = {
@@ -156,6 +155,9 @@ export default ({
     }
   }
   __createLevel() {
+    const mapData = this.game.cache.getTilemapData(playground);
+    this.game.stage.backgroundColor = mapData.data.backgroundcolor;
+
     this.map = this.add.tilemap(playground);
     this.map.addTilesetImage('game_tiles', 'game_tiles');
     this.map.setCollisionBetween(0, 999, true, 'collision');
