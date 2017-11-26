@@ -35,6 +35,11 @@ export default class Player extends Phaser.TileSprite {
   addWeight() {
     if (this.__weight < MAX_WEIGHT) {
       this.__weight += 0.5;
+      if (this.facing === 'idle') {
+        this.play(this.__getIdleAnimation());
+      } else {
+        this.play(this.__getWalkAnimation());
+      }
     }
   }
   restoreHealth() {

@@ -99,11 +99,11 @@ export default ({
   }
   __touchEnemy(player, enemy) {
     if (player.body.touching.down && enemy.body.touching.up) {
-      /*if (enemy.killWithAnimation) {
+      if (enemy.killWithAnimation) {
         enemy.killWithAnimation();
       } else {
         enemy.kill();
-      }*/
+      }
       player.body.velocity.y = -200;
     } else {
       if (player.invincible) {
