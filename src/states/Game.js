@@ -144,15 +144,8 @@ export default ({
     if (player.invincible) {
       return;
     }
-
     item.kill();
     player.addWeight(1);
-
-    if (!player.alive) {
-      this.onSaveAndNext({ isDone: false });
-    } else {
-      player.makeInvincible();
-    }
   }
   __createLevel() {
     const mapData = this.game.cache.getTilemapData(playground);

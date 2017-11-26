@@ -8,6 +8,8 @@ export default class Player extends Phaser.TileSprite {
 
     this.animations.add('walk', [26, 27, 28, 29], 10, true);
     this.animations.add('idle', [20, 21], 2, true);
+    this.animations.add('walk_fat', [206, 207, 208, 209], 10, true);
+    this.animations.add('idle_fat', [200, 201], 2, true);
 
     game.physics.arcade.enable(this);
     this.body.setSize(18, 18, 3, 3);
@@ -52,20 +54,20 @@ export default class Player extends Phaser.TileSprite {
 
     if (this.cursors.left.isDown) {
       this.body.velocity.x = -RUNNING_SPEED / this.__weight * .5;
-      this.play('walk');
+      this.play(this.__getWalkAnimation());
       if (this.facing !== 'left') {
         this.facing = 'left';
         this.tileScale.setTo(-1, 1);
       }
     } else if (this.cursors.right.isDown) {
       this.body.velocity.x = RUNNING_SPEED / this.__weight * .5;
-      this.play('walk');
+      this.play(this.__getWalkAnimation());
       if (this.facing !== 'right') {
         this.facing = 'right';
         this.tileScale.setTo(1, 1);
       }
     } else if (this.facing !== 'idle') {
-      this.play('idle');
+      this.play(this.__getIdleAnimation());
       this.facing = 'idle';
     }
 
@@ -77,9 +79,15 @@ export default class Player extends Phaser.TileSprite {
       && this.cursors.up.isDown && this.game.time.time > this.jumpTimer) {
       this.body.velocity.y = -JUMPING_SPEED;
       this.jumpTimer = this.game.time.time + 750;
-      this.play('idle');
+      this.play(this.__getIdleAnimation());
     }
 
     this.wasStanding = standing;
+  }
+  __getWalkAnimation() {
+    return this.__weight > 1 ? 'walk_fat' : 'walk';
+  }
+  __getIdleAnimation() {
+    return this.__weight > 1 ? 'idle_fat' : 'idle';
   }
 }
