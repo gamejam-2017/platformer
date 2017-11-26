@@ -2,7 +2,7 @@ import Level from '../../prefabs/Level';
 import storage from '../../utils/localStorageFacade';
 import * as stateNameLevels from '../../constants//stateNameLevels';
 
-const marginX = 20;
+const marginX = 10;
 const marginY = 20;
 
 const styleText = {
@@ -29,26 +29,27 @@ export default class LevelsState extends Phaser.State {
       new Level({
         text: '2',
         storageData: dataByStorage[stateNameLevels.GameLevel_2],
-        // isDone: dataByStorage[stateNameLevels.GameLevel_2] && dataByStorage[stateNameLevels.GameLevel_2].isDone,
         onClick: () => this.state.start(stateNameLevels.GameLevel_2)
       }),
       new Level({
         text: '3',
         storageData: dataByStorage[stateNameLevels.GameLevel_3],
-        // isDone: dataByStorage[stateNameLevels.GameLevel_3] && dataByStorage[stateNameLevels.GameLevel_3].isDone,
         onClick: () => this.state.start(stateNameLevels.GameLevel_3)
       }),
       new Level({
         text: '4',
         storageData: dataByStorage[stateNameLevels.GameLevel_4],
-        // isDone: dataByStorage[stateNameLevels.GameLevel_4] && dataByStorage[stateNameLevels.GameLevel_4].isDone,
         onClick: () => this.state.start(stateNameLevels.GameLevel_4)
       }),
       new Level({
         text: '5',
         storageData: dataByStorage[stateNameLevels.GameLevel_5],
-        // isDone: dataByStorage[stateNameLevels.GameLevel_5] && dataByStorage[stateNameLevels.GameLevel_5].isDone,
         onClick: () => this.state.start(stateNameLevels.GameLevel_5)
+      }),
+      new Level({
+        text: '6',
+        storageData: dataByStorage[stateNameLevels.GameLevel_6],
+        onClick: () => this.state.start(stateNameLevels.GameLevel_6)
       })
     ];
   }
@@ -75,28 +76,28 @@ export default class LevelsState extends Phaser.State {
     const style = { font: '10px', fill: '#000', align: 'center' };
     const sizeBtn = 42;
     this.levels.forEach((v, key) => {
+      const x = key * marginX + key * sizeBtn + styleText.paddingLeft;
+      const y = marginY;
       if (v.storageData && v.storageData.isDone) {
-        const x = marginX + key * sizeBtn;
-        const y = marginY;
         if (v.storageData.time) {
           this.game.add.text(x, y + sizeBtn, v.storageData.time + 'сек', styleWhite);
         }
         this.game.add.button(x, y, 'levelDoneButtons', this.onLevelDoneClick.bind(this, v), this, 0, 0, 0);
-        const coin = this.game.add.tileSprite.bind(this, x, y + sizeBtn + 13, 21, 21, 'game_tiles', 78);
+        const coin = this.game.add.tileSprite.bind(this, x, y + sizeBtn + 14, 21, 21, 'game_tiles', 78);
         this.__addTextCount(coin, v.storageData.collectedResources, 'coins');
-        const energy = this.game.add.tileSprite.bind(this, x, y + sizeBtn + 26, 21, 21, 'game_tiles', 14);
+        const energy = this.game.add.tileSprite.bind(this, x, y + sizeBtn + 28, 21, 21, 'game_tiles', 14);
         this.__addTextCount(energy, v.storageData.collectedResources, 'energy');
-        const garb = this.game.add.tileSprite.bind(this, x, y + sizeBtn + 46, 21, 21, 'game_tiles', 194);
+        const garb = this.game.add.tileSprite.bind(this, x, y + sizeBtn + 42, 21, 21, 'game_tiles', 285);
         this.__addTextCount(garb, v.storageData.collectedResources, 'garb');
 
 
       } else {
-        this.game.add.button(marginX + key * sizeBtn,
+        this.game.add.button(x,
           marginY,
           'levelButtons',
           this.onLevelClick.bind(this, v),
           this, 0, 0, 0);
-        this.game.add.text(marginX + key * sizeBtn + styleText.paddingLeft,
+        this.game.add.text(x + styleText.paddingLeft,
           marginY + styleText.paddingTop,
           v.text,
           style);

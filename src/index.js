@@ -65,32 +65,17 @@ class Game extends Phaser.Game {
             onNext: (isDone) => isDone ? this.state.start(stateNameLevels.GameLevel_1) : this.state.start(stateNameLevels.GameLevel_5)
           })
         ));
-        // this.state.add(stateNameLevels.GameLevel_4, GameSpeed({
-        //   levelName: stateNameLevels.GameLevel_4,
-        //   onNext: (isDone) => isDone ? this.state.start(stateNameLevels.GameLevel_1) : this.state.start(stateNameLevels.GameLevel_4)
-        // }));
-        // this.state.add(stateNameLevels.GameLevel_3, GameState({
-        //   levelName: stateNameLevels.GameLevel_3,
-        //   playground: 'playground_level',
-        //   onNext: (isDone) => isDone ? this.state.start(stateNameLevels.GameLevel_4) : this.state.start(stateNameLevels.GameLevel_3)
-        // }));
-        // this.state.add(stateNameLevels.GameLevel_4, GameSpeed({
-        //   levelName: stateNameLevels.GameLevel_4,
-        //   onNext: (isDone) => isDone ? this.state.start(stateNameLevels.GameLevel_1) : this.state.start(stateNameLevels.GameLevel_4)
-        // }));
-        // this.state.add('GameLevel_5', GameState({
-        //   levelName: 'level_5',
-        //   playground: 'playground_level'
-        // }));
-        // this.state.add('GameLevel_6', GameState({
-        //   levelName: 'level_6',
-        //   playground: 'playground_level'
-        // }));
-
+        this.state.add(stateNameLevels.GameLevel_6, mix(GameState({
+          playground: 'level_5',
+        })).with(
+          timerMixin(stateNameLevels.GameLevel_6),
+          levelMixin({
+            levelName: stateNameLevels.GameLevel_6,
+            onNext: (isDone) => isDone ? this.state.start(stateNameLevels.GameLevel_1) : this.state.start(stateNameLevels.GameLevel_5)
+          })
+        ));
         this.state.add('MainMenu', MainMenuState);
         this.state.add('LevelsMenu', LevelsMenuState);
-        this.state.add('GameSpeed', GameSpeed);
-        // this.state.add('GameMemory', GameMemory);
 
 
         this.state.start('Boot');
